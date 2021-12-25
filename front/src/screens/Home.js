@@ -12,41 +12,57 @@ import {
 function HomeScreen({ navigation }) {
   const { text, setText } = useState("");
   return (
-    <View style={styles.homeStyle}>
-      <Text style={styles.title}>Welcome to Caring</Text>
-      <Text style={styles.smallContainer}>Please Enter your Email Address</Text>
-      <TextInput
-        style={styles.inputStyle}
-        placeholder="Enter your email address here"
-        value={text}
-        //onChangeText={setText}
-      />
-      <Pressable
-        style={styles.button}
-        onPress={() => navigation.navigate("Choose")}
-      >
-        <Text style={styles.text}>Submit</Text>
-      </Pressable>
+    <>
+      <View style={styles.container}>
+        <LottieView
+          style={styles.lottie}
+          source={require("../../assets/lottie/34452-hi-button-animation.json")}
+          autoPlay
+        />
+        <Text style={styles.title}>Welcome to Caring</Text>
+        <Text style={styles.smallContainer}>
+          Please Enter your Email Address
+        </Text>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="Enter your email address here"
+          value={text}
+          //onChangeText={setText}
+        />
+        <Pressable
+          style={styles.button}
+          onPress={() => navigation.navigate("Auth")}
+        >
+          <Text style={styles.text}>Submit</Text>
+        </Pressable>
 
-      <Pressable
-        style={styles.trust}
-        onPress={() => navigation.navigate("Choose")}
-      >
-        <Text style={styles.text2}>Why should i trust you? Click to learn</Text>
-      </Pressable>
-    </View>
+        <Pressable
+          style={styles.trust}
+          onPress={() => navigation.navigate("Trust")}
+        >
+          <Text style={styles.text2}>
+            Why should i trust you? Click to learn
+          </Text>
+        </Pressable>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  homeStyle: {
+  container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,
+    backgroundColor: "white",
+  },
+  lottie: {
+    position: "absolute",
+    bottom: 250,
   },
   title: {
-    fontSize: 50,
+    fontSize: 40,
     fontWeight: "bold",
     letterSpacing: 0.25,
   },
