@@ -18,10 +18,13 @@ function HomeScreen({ navigation }) {
           style={styles.lottie}
           source={require("../../assets/lottie/34452-hi-button-animation.json")}
           autoPlay
+          loop
         />
-        <Text style={styles.title}>Welcome to Caring</Text>
+        <Text style={styles.title}>
+          Welcome to <Text style={styles.caring}>Caring</Text>
+        </Text>
         <Text style={styles.smallContainer}>
-          Please Enter your Email Address
+          Please enter your email address
         </Text>
         <TextInput
           style={styles.inputStyle}
@@ -33,16 +36,14 @@ function HomeScreen({ navigation }) {
           style={styles.button}
           onPress={() => navigation.navigate("Auth")}
         >
-          <Text style={styles.text}>Submit</Text>
+          <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
 
         <Pressable
-          style={styles.trust}
+          style={styles.trustText}
           onPress={() => navigation.navigate("Trust")}
         >
-          <Text style={styles.text2}>
-            Why should i trust you? Click to learn
-          </Text>
+          <Text style={styles.linkText}>Why should I trust this app?</Text>
         </Pressable>
       </View>
     </>
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
   },
   smallContainer: {
     paddingTop: 60,
+    fontSize: 20,
   },
   inputStyle: {
     height: 40,
@@ -75,29 +77,40 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: 300,
+    borderColor: "#7A6C5D",
   },
 
   button: {
-    marginTop: 40,
+    marginTop: 30,
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "#406882",
-    borderColor: "#B1D0E0",
+    backgroundColor: "#7A6C5D",
+    borderColor: "#7A6C5D",
     borderWidth: 2,
+    borderRadius: 20,
   },
-  text: {
+  buttonText: {
     fontSize: 20,
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
   },
-  trust: {
-    marginTop: 40,
+  trustText: {
+    marginTop: 60,
+    top: 100,
   },
-  text2: {
-    fontSize: 15,
+  linkText: {
+    fontSize: 20,
+    color: "#0645AD",
+    textDecorationLine: "underline",
+  },
+  caring: {
+    color: "#48ACDF",
+    textShadowColor: "#1c789c",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });
 
