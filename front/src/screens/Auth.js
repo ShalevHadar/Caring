@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
+import AnimatedExample from "../component/authForm";
 
 function Auth({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Auth Screen</Text>
+      <AnimatedExample />
     </View>
   );
 }
@@ -14,6 +15,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white",
   },
 });
 

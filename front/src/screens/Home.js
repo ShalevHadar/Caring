@@ -1,13 +1,6 @@
 import LottieView from "lottie-react-native";
 import React, { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-  TextInput,
-  SafeAreaView,
-} from "react-native";
+import { Text, StyleSheet, View, Pressable, TextInput } from "react-native";
 
 function HomeScreen({ navigation }) {
   const { text, setText } = useState("");
