@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Text, StyleSheet, View, Pressable, TextInput } from "react-native";
 
 function HomeScreen({ navigation }) {
-  const { text, setText } = useState("");
+  const [text, setText] = useState("");
+
   return (
     <>
       <View style={styles.container}>
@@ -25,11 +26,11 @@ function HomeScreen({ navigation }) {
           autoCorrect={false}
           placeholder="Enter your email address here"
           value={text}
-          //onChangeText={setText}
+          onChangeText={(e) => setText(e)}
         />
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("Auth")}
+          onPress={() => navigation.navigate("Auth", { email: text })}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
