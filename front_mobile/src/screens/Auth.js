@@ -5,7 +5,7 @@ import AnimatedExample from "../component/authForm";
 function Auth({ navigation }) {
   return (
     <View style={styles.container}>
-      <AnimatedExample />
+      <AnimatedExample navigation={navigation} />
     </View>
   );
 }

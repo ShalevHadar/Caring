@@ -21,6 +21,8 @@ function HomeScreen({ navigation }) {
         </Text>
         <TextInput
           style={styles.inputStyle}
+          autoCapitalize="none"
+          autoCorrect={false}
           placeholder="Enter your email address here"
           value={text}
           //onChangeText={setText}

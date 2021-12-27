@@ -3,7 +3,14 @@
 Concept: https://dribbble.com/shots/5476562-Forgot-Password-Verification/attachments
 
 */
-import { Animated, Image, SafeAreaView, Text, View } from "react-native";
+import {
+  Animated,
+  Image,
+  Pressable,
+  SafeAreaView,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 
 import {
@@ -52,7 +59,6 @@ const AnimatedExample = ({ navigation }) => {
     value,
     setValue,
   });
-  console.log(value);
 
   const renderCell = ({ index, symbol, isFocused }) => {
     const hasValue = Boolean(symbol);
@@ -117,9 +123,13 @@ const AnimatedExample = ({ navigation }) => {
         textContentType="oneTimeCode"
         renderCell={renderCell}
       />
-      <View style={styles.nextButton}>
+
+      <Pressable
+        style={styles.nextButton}
+        onPress={() => navigation.navigate("Incident")}
+      >
         <Text style={styles.nextButtonText}>Verify</Text>
-      </View>
+      </Pressable>
     </SafeAreaView>
   );
 };

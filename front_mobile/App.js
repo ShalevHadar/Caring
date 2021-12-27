@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/Home";
 import AuthScreen from "./src/screens/Auth";
 import TrustScreen from "./src/screens/Trust";
+import Incident from "./src/screens/Incident";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,11 @@ function App() {
         <Stack.Screen
           name="Trust"
           component={TrustScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Incident"
+          component={Incident}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
