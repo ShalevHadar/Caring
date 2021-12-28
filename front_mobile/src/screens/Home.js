@@ -33,7 +33,6 @@ function HomeScreen({ navigation }) {
         if (error.response.status > 400) {
           setShowText(true);
           setHandleEmailsSTR(`your email isn't a part of the school db`);
-          console.log("fk");
         }
       });
   };
