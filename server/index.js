@@ -39,8 +39,8 @@ app.post("/api/getPin", (req, res) => {
     `SELECT * FROM students WHERE email = '${email}'`,
     (err, results, field) => {
       if (results.length === 1) {
-        const [{ pincode }] = results;
-        res.status(200).json(pincode);
+        const [{ pincode, firstname }] = results;
+        res.status(200).json({ pincode, firstname });
       } else {
         res.status(404).json("email was not found");
       }

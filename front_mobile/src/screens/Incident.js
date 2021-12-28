@@ -6,8 +6,19 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 
 const Incident = ({ route }) => {
-  const {email} = (route.params);
+  const { email, fName } = route.params;
+  console.log(email, fName);
+  const [studentNamer, setStudentName] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(false);
+
+  const setName = () => {
+    setIsAnonymous(!isAnonymous);
+    setStudentName(fName);
+  };
+
+  const Capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -24,16 +35,16 @@ const Incident = ({ route }) => {
         style={{ marginBottom: 20 }}
         size={22}
         isChecked={isAnonymous}
-        onPress={() => setIsAnonymous(!isAnonymous)}
+        onPress={() => setName()}
         fillColor="#48acdf"
         unfillColor="#FFFFFF"
         text="Do you want to identify yourself?"
         //iconStyle={{ borderColor: "#1c789c" }}
-        textStyle={{ fontSize: 22 }}
+        textStyle={{ fontSize: 22, textDecorationLine: "none" }}
       />
       <View style={styles.identifyContainer}>
         <Text style={styles.identifyText}>
-          {isAnonymous ? "Shalev Hadar, 12th Grade" : "Anonymous"}
+          {isAnonymous ? Capitalize(fName) : "Anonymous"}
         </Text>
       </View>
       <TextInput
