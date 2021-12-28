@@ -12,10 +12,10 @@ app.use(express.json());
 app.use(cors());
 
 const mysqlConnection = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "ab12sd45",
-  database: "caring",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   multipleStatements: true,
 });
 
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 app.post("/api/send", (req, res) => {
   const { email } = req.body;
-  console.log(email);
+
   mysqlConnection.query(
     `SELECT * FROM students WHERE email = '${email}'`,
     (err, results, field) => {

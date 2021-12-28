@@ -30,7 +30,7 @@ function HomeScreen({ navigation }) {
         navigation.navigate("Auth", { studentDetails });
       })
       .catch(function (error) {
-        if (error.response.status > 300) {
+        if (error.response.status > 400) {
           setShowText(true);
           setHandleEmailsSTR(`your email isn't a part of the school db`);
           console.log("fk");
