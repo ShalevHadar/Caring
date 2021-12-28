@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, StyleSheet, View, Image, Pressable } from "react-native";
+import { Text, View, Image, Pressable } from "react-native";
 import LottieView from "lottie-react-native";
 import { Ionicons } from "@expo/vector-icons";
+import styles from "../style/TrustStyle";
 
 function Trust({ navigation }) {
   return (
@@ -29,44 +30,5 @@ function Trust({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: 38,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    marginBottom: 50,
-    paddingHorizontal: 10,
-    top: 30,
-    textAlign: "center",
-  },
-  lottie: {
-    position: "absolute",
-    bottom: 250,
-  },
-  paragraph: {
-    paddingHorizontal: 20,
-    top: 50,
-    fontSize: 24,
-  },
-  lineStyle: {
-    position: "absolute",
-    zIndex: -1,
-    top: 540,
-    left: -140,
-    maxHeight: 100,
-    maxHeight: 300,
-  },
-  backIcon: {
-    top: 200,
-    right: 140,
-  },
-});
 
 export default Trust;

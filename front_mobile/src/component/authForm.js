@@ -1,16 +1,4 @@
-/*
-
-Concept: https://dribbble.com/shots/5476562-Forgot-Password-Verification/attachments
-
-*/
-import {
-  Animated,
-  Image,
-  Pressable,
-  SafeAreaView,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Image, Pressable, SafeAreaView, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import {
@@ -26,7 +14,7 @@ import styles, {
   CELL_SIZE,
   DEFAULT_CELL_BG_COLOR,
   NOT_EMPTY_CELL_BG_COLOR,
-} from "./styles";
+} from "../style/authFormStyle";
 import handleApi from "../api/handleApi";
 
 const { Value, Text: AnimatedText } = Animated;
@@ -62,6 +50,7 @@ const AnimatedExample = ({ navigation, email }) => {
     setValue,
   });
 
+  // get pincode & Fname of user from db upon entering the screen
   useEffect(async () => {
     await handleApi
       .post("/getPin", { email })
@@ -76,6 +65,7 @@ const AnimatedExample = ({ navigation, email }) => {
       });
   }, []);
 
+  // handle the submit button
   const handleSubmit = async () => {
     if (value.length === 4) {
       setShowText(false);
@@ -158,16 +148,7 @@ const AnimatedExample = ({ navigation, email }) => {
         textContentType="oneTimeCode"
         renderCell={renderCell}
       />
-      <Text
-        style={{
-          color: "#E63946",
-          alignSelf: "center",
-          marginTop: 20,
-          fontSize: 20,
-        }}
-      >
-        {showText ? handleWrongPin : ""}
-      </Text>
+      <Text style={styles.warningText}>{showText ? handleWrongPin : ""}</Text>
 
       <Pressable style={styles.nextButton} onPress={() => handleSubmit()}>
         <Text style={styles.nextButtonText}>Verify</Text>

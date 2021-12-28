@@ -79,6 +79,12 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "700",
   },
+  warningText: {
+    color: "#E63946",
+    alignSelf: "center",
+    marginTop: 20,
+    fontSize: 20,
+  },
 });
 
 export default styles;

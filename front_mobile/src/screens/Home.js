@@ -1,16 +1,16 @@
 import LottieView from "lottie-react-native";
-import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, View, Pressable, TextInput } from "react-native";
-import axios from "axios";
+import React, { useState } from "react";
+import { Text, View, Pressable, TextInput } from "react-native";
 import handleApi from "../api/handleApi";
+import styles from "../style/HomeStyle";
 
 function HomeScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [flag, setFlag] = useState(false);
   const [showText, setShowText] = useState(false);
   const [handleEmailsSTR, setHandleEmailsSTR] = useState("");
-  const [studentDetails, setStudentDetails] = useState();
 
+  // validating the email with front Regex
   const validate = (text) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(text) === false) {
@@ -20,12 +20,11 @@ function HomeScreen({ navigation }) {
     }
   };
 
+  // handle post function send email to server
   const handlePost = async () => {
     await handleApi
       .post("/sendVerification", { email })
       .then(function (response) {
-        //console.log(response.data);
-        setStudentDetails(response.data);
         setShowText(false);
         navigation.navigate("Auth", { email: email });
       })
@@ -37,10 +36,7 @@ function HomeScreen({ navigation }) {
       });
   };
 
-  const handleSubmit = () => {
-    handlePost();
-  };
-
+  // if email isn't valid (Regex);
   const handleNotValidEmail = () => {
     setHandleEmailsSTR(`your email isn't valid`);
     setShowText(true);
@@ -73,15 +69,13 @@ function HomeScreen({ navigation }) {
             validate(e);
           }}
         />
-        <Text style={{ color: "#E63946" }}>
-          {showText ? handleEmailsSTR : ""}
-        </Text>
+        <Text style={styles.roseColor}>{showText ? handleEmailsSTR : ""}</Text>
 
         <Pressable
           style={styles.button}
           onPress={() => {
             validate(email);
-            flag ? handleSubmit() : handleNotValidEmail();
+            flag ? handlePost() : handleNotValidEmail();
           }}
         >
           <Text style={styles.buttonText}>Submit</Text>
@@ -97,69 +91,5 @@ function HomeScreen({ navigation }) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 10,
-    backgroundColor: "white",
-  },
-  lottie: {
-    position: "absolute",
-    bottom: 250,
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-  },
-  smallContainer: {
-    paddingTop: 60,
-    fontSize: 20,
-  },
-  inputStyle: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: 300,
-    borderColor: "#7A6C5D",
-  },
-
-  button: {
-    marginTop: 30,
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "#7A6C5D",
-    borderColor: "#7A6C5D",
-    borderWidth: 2,
-    borderRadius: 20,
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-  },
-  trustText: {
-    marginTop: 60,
-    top: 100,
-  },
-  linkText: {
-    fontSize: 20,
-    color: "#0645AD",
-    textDecorationLine: "underline",
-  },
-  caring: {
-    color: "#48ACDF",
-    textShadowColor: "#1c789c",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
-  },
-});
 
 export default HomeScreen;

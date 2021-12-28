@@ -1,4 +1,5 @@
 TODO:
+- check Status code FOR EVERY request
 
 
 PROBLEMS:

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import AnimatedExample from "../component/authForm";
+import styles from "../style/AuthStyle";
 
 function Auth({ navigation, route }) {
   return (
@@ -13,15 +14,5 @@ function Auth({ navigation, route }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
-    paddingTop: 250,
-  },
-});
 
 export default Auth;
