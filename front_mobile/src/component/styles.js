@@ -61,9 +61,10 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     color: "#000",
     textAlign: "center",
+    fontSize: 20,
   },
   nextButton: {
-    marginTop: 30,
+    marginTop: 20,
     borderRadius: 60,
     height: 50,
     backgroundColor: "#7A6C5D",

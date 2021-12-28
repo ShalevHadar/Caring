@@ -5,7 +5,7 @@ import axios from "axios";
 import handleApi from "../api/handleApi";
 
 function HomeScreen({ navigation }) {
-  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
   const [flag, setFlag] = useState(false);
   const [showText, setShowText] = useState(false);
   const [handleEmailsSTR, setHandleEmailsSTR] = useState("");
@@ -22,12 +22,12 @@ function HomeScreen({ navigation }) {
 
   const handlePost = async () => {
     await handleApi
-      .post("/send", { email: text })
+      .post("/sendVerification", { email })
       .then(function (response) {
         //console.log(response.data);
         setStudentDetails(response.data);
         setShowText(false);
-        navigation.navigate("Auth", { studentDetails });
+        navigation.navigate("Auth", { email: email });
       })
       .catch(function (error) {
         if (error.response.status > 400) {
@@ -67,9 +67,9 @@ function HomeScreen({ navigation }) {
           autoCapitalize="none"
           autoCorrect={false}
           placeholder="Enter your email address here"
-          value={text}
+          value={email}
           onChangeText={(e) => {
-            setText(e);
+            setEmail(e);
             validate(e);
           }}
         />
@@ -80,7 +80,7 @@ function HomeScreen({ navigation }) {
         <Pressable
           style={styles.button}
           onPress={() => {
-            validate(text);
+            validate(email);
             flag ? handleSubmit() : handleNotValidEmail();
           }}
         >

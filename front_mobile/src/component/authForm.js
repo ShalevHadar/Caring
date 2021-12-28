@@ -11,7 +11,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   CodeField,
@@ -27,6 +27,7 @@ import styles, {
   DEFAULT_CELL_BG_COLOR,
   NOT_EMPTY_CELL_BG_COLOR,
 } from "./styles";
+import handleApi from "../api/handleApi";
 
 const { Value, Text: AnimatedText } = Animated;
 
@@ -49,13 +50,43 @@ const animateCell = ({ hasValue, index, isFocused }) => {
   ]).start();
 };
 
-const AnimatedExample = ({ navigation }) => {
+const AnimatedExample = ({ navigation, email }) => {
   const [value, setValue] = useState("");
+  const [showText, setShowText] = useState(false);
+  const [handleWrongPin, setHandleWrongPin] = useState("");
+  const [pincode, setPincode] = useState();
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
+  useEffect(async () => {
+    await handleApi
+      .post("/getPin", { email })
+      .then(function (response) {
+        setPincode(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  const handleSubmit = async () => {
+    if (value.length === 4) {
+      setShowText(false);
+      if (pincode == value) {
+        navigation.navigate("Incident", { email });
+      } else {
+        setShowText(true);
+        setHandleWrongPin(`Wrong Pincode`);
+      }
+    }
+    if (value.length < 4) {
+      setShowText(true);
+      setHandleWrongPin(`Pin is missing ${4 - value.length} Digits`);
+    }
+  };
 
   const renderCell = ({ index, symbol, isFocused }) => {
     const hasValue = Boolean(symbol);
@@ -123,11 +154,18 @@ const AnimatedExample = ({ navigation }) => {
         textContentType="oneTimeCode"
         renderCell={renderCell}
       />
-
-      <Pressable
-        style={styles.nextButton}
-        onPress={() => navigation.navigate("Incident")}
+      <Text
+        style={{
+          color: "#E63946",
+          alignSelf: "center",
+          marginTop: 20,
+          fontSize: 20,
+        }}
       >
+        {showText ? handleWrongPin : ""}
+      </Text>
+
+      <Pressable style={styles.nextButton} onPress={() => handleSubmit()}>
         <Text style={styles.nextButtonText}>Verify</Text>
       </Pressable>
     </SafeAreaView>

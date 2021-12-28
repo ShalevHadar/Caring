@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import AnimatedExample from "../component/authForm";
 
 function Auth({ navigation, route }) {
-  console.log(route.params.studentDetails);
-  //console.log(email);
   return (
     <View style={styles.container}>
-      <AnimatedExample style={styles.main} navigation={navigation} />
+      <AnimatedExample
+        email={route.params.email}
+        style={styles.main}
+        navigation={navigation}
+      />
     </View>
   );
 }

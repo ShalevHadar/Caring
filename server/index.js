@@ -32,7 +32,23 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/api/send", (req, res) => {
+app.post("/api/getPin", (req, res) => {
+  const { email } = req.body;
+
+  mysqlConnection.query(
+    `SELECT * FROM students WHERE email = '${email}'`,
+    (err, results, field) => {
+      if (results.length === 1) {
+        const [{ pincode }] = results;
+        res.status(200).json(pincode);
+      } else {
+        res.status(404).json("email was not found");
+      }
+    }
+  );
+});
+
+app.post("/api/sendVerification", (req, res) => {
   const { email } = req.body;
 
   mysqlConnection.query(

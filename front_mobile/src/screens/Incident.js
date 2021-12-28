@@ -5,7 +5,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 
-const Incident = () => {
+const Incident = ({ route }) => {
+  const {email} = (route.params);
   const [isAnonymous, setIsAnonymous] = useState(false);
 
   return (
