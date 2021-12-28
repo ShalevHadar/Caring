@@ -3,14 +3,11 @@ import { Text, StyleSheet, View } from "react-native";
 import AnimatedExample from "../component/authForm";
 
 function Auth({ navigation, route }) {
-  const { email } = route.params;
-  console.log(email);
+  console.log(route.params.studentDetails[0]);
+  //console.log(email);
   return (
     <View style={styles.container}>
-      <AnimatedExample navigation={navigation} />
-      <Text style={{ fontSize: 50, position: "absolute", bottom: 240 }}>
-        Hello
-      </Text>
+      <AnimatedExample style={styles.main} navigation={navigation} />
     </View>
   );
 }
@@ -21,6 +18,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+    paddingTop: 250,
   },
 });
 

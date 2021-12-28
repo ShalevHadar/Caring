@@ -1,9 +1,51 @@
 import LottieView from "lottie-react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, StyleSheet, View, Pressable, TextInput } from "react-native";
+import axios from "axios";
+import handleApi from "../api/handleApi";
 
 function HomeScreen({ navigation }) {
   const [text, setText] = useState("");
+  const [flag, setFlag] = useState(false);
+  const [showText, setShowText] = useState(false);
+  const [handleEmailsSTR, setHandleEmailsSTR] = useState("");
+  const [studentDetails, setStudentDetails] = useState();
+
+  const validate = (text) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(text) === false) {
+      setFlag(false);
+    } else {
+      setFlag(true);
+    }
+  };
+
+  const handlePost = async () => {
+    await handleApi
+      .post("/send", { email: text })
+      .then(function (response) {
+        //console.log(response.data);
+        setStudentDetails(response.data);
+        setShowText(false);
+        navigation.navigate("Auth", { studentDetails });
+      })
+      .catch(function (error) {
+        if (error.response.status > 300) {
+          setShowText(true);
+          setHandleEmailsSTR(`your email isn't a part of the school db`);
+          console.log("fk");
+        }
+      });
+  };
+
+  const handleSubmit = () => {
+    handlePost();
+  };
+
+  const handleNotValidEmail = () => {
+    setHandleEmailsSTR(`your email isn't valid`);
+    setShowText(true);
+  };
 
   return (
     <>
@@ -13,6 +55,7 @@ function HomeScreen({ navigation }) {
           source={require("../../assets/lottie/34452-hi-button-animation.json")}
           autoPlay
           loop
+          progress={100}
         />
         <Text style={styles.title}>
           Welcome to <Text style={styles.caring}>Caring</Text>
@@ -26,11 +69,21 @@ function HomeScreen({ navigation }) {
           autoCorrect={false}
           placeholder="Enter your email address here"
           value={text}
-          onChangeText={(e) => setText(e)}
+          onChangeText={(e) => {
+            setText(e);
+            validate(e);
+          }}
         />
+        <Text style={{ color: "#E63946" }}>
+          {showText ? handleEmailsSTR : ""}
+        </Text>
+
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("Auth", { email: text })}
+          onPress={() => {
+            validate(text);
+            flag ? handleSubmit() : handleNotValidEmail();
+          }}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>

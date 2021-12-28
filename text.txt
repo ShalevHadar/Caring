@@ -1,0 +1,6 @@
+TODO:
+
+
+PROBLEMS:
+- What if someone will keep spamming request with wrong emails to server? for example
+spam a@g.com million times.

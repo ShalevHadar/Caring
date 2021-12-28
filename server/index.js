@@ -4,18 +4,49 @@ const app = express();
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 const port = process.env.PORT;
+const cors = require("cors");
+const mysql = require("mysql2");
 
 // middleware
 app.use(express.json());
+app.use(cors());
+
+const mysqlConnection = mysql.createConnection({
+  host: "127.0.0.1",
+  user: "root",
+  password: "ab12sd45",
+  database: "caring",
+  multipleStatements: true,
+});
+
+mysqlConnection.connect((err) => {
+  if (!err) {
+    console.log("connection start");
+  } else {
+    console.log("connection failed");
+  }
+});
 
 // routes
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/send", (req, res) => {
+app.post("/api/send", (req, res) => {
   const { email } = req.body;
   console.log(email);
+  mysqlConnection.query(
+    `SELECT * FROM students WHERE email = '${email}'`,
+    (err, results, field) => {
+      console.log(results);
+      if (results.length === 1) {
+        res.status(200).json(results);
+      } else {
+        res.status(404).json("email was not found");
+      }
+    }
+  );
+
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -31,14 +62,14 @@ app.post("/send", (req, res) => {
     text: "That was easy!",
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      res.status(404).send({ message: error.message });
-    } else {
-      console.log(info);
-      res.status(200).send({ message: "well done ! email sent" });
-    }
-  });
+  // transporter.sendMail(mailOptions, function (error, info) {
+  //   if (error) {
+  //     res.status(404).send({ message: error.message });
+  //   } else {
+  //     console.log(info);
+  //     res.status(200).send({ message: "well done ! email sent" });
+  //   }
+  // });
 });
 
 app.listen(port, () => {

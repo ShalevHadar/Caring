@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from "react-native";
 export const CELL_SIZE = 55;
 export const CELL_BORDER_RADIUS = 8;
 export const DEFAULT_CELL_BG_COLOR = "#fff";
-export const NOT_EMPTY_CELL_BG_COLOR = "#3557b7";
+export const NOT_EMPTY_CELL_BG_COLOR = "#48ACDF";
 export const ACTIVE_CELL_BG_COLOR = "#f7fafe";
 
 const styles = StyleSheet.create({
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     borderRadius: CELL_BORDER_RADIUS,
-    color: "#3759b8",
+    color: "#48ACDF",
     backgroundColor: "#fff",
 
     // IOS
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   icon: {
-    width: 217 / 2.4,
-    height: 158 / 2.4,
+    width: 287 / 2.4,
+    height: 198 / 2.4,
     marginLeft: "auto",
     marginRight: "auto",
   },
@@ -65,11 +65,12 @@ const styles = StyleSheet.create({
   nextButton: {
     marginTop: 30,
     borderRadius: 60,
-    height: 60,
-    backgroundColor: "#3557b7",
+    height: 50,
+    backgroundColor: "#7A6C5D",
     justifyContent: "center",
-    minWidth: 300,
+    width: 130,
     marginBottom: 100,
+    alignSelf: "center",
   },
   nextButtonText: {
     textAlign: "center",

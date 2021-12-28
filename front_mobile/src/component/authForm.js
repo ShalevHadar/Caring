@@ -31,9 +31,6 @@ import styles, {
 const { Value, Text: AnimatedText } = Animated;
 
 const CELL_COUNT = 4;
-const source = {
-  uri: "https://user-images.githubusercontent.com/4661784/56352614-4631a680-61d8-11e9-880d-86ecb053413d.png",
-};
 
 const animationsColor = [...new Array(CELL_COUNT)].map(() => new Value(0));
 const animationsScale = [...new Array(CELL_COUNT)].map(() => new Value(1));
@@ -106,10 +103,13 @@ const AnimatedExample = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.root}>
       <Text style={styles.title}>Verification</Text>
-      <Image style={styles.icon} source={source} />
+      <Image
+        style={styles.icon}
+        source={require("../../assets/lockCaring.png")}
+      />
       <Text style={styles.subTitle}>
         Please enter the verification code{"\n"}
-        we send to your email address
+        we sent to your email address
       </Text>
 
       <CodeField
