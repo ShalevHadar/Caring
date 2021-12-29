@@ -54,7 +54,7 @@ app.post("/api/createPinByEmail", (req, res) => {
     `SELECT * FROM students WHERE email = '${email}'`,
     (err, results, field) => {
       //console.log(results);
-      if (results.length === 1) {
+      if (results) {
         const pin = generatePin();
         modifyUserPin(email, pin);
         res.status(200).json(results);
@@ -70,7 +70,7 @@ app.post("/api/sendEmail", (req, res) => {
   mysqlConnection.query(
     `SELECT pincode FROM students WHERE email = '${email}'`,
     (err, results, field) => {
-      if (results.length === 1) {
+      if (results) {
         const [{ pincode }] = results;
         sendEmailFunction(email, pincode);
         res.status(200).json(results);

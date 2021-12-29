@@ -1,5 +1,5 @@
 import LottieView from "lottie-react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Text,
   View,
@@ -16,7 +16,7 @@ function HomeScreen({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [showText, setShowText] = useState(false);
   const [handleEmailsSTR, setHandleEmailsSTR] = useState("");
-  const [progress, setProgress] = useState(new Animated.Value(0));
+  const [loop, setLoop] = useState(true);
 
   // validating the email with front Regex
   const validate = (text) => {
@@ -51,12 +51,11 @@ function HomeScreen({ navigation }) {
   };
 
   useEffect(() => {
-    handleProgress;
+    let timer = setTimeout(() => setLoop(false), 10000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
-
-  const handleProgress = (progress) => {
-    Animated.timing(progress).start();
-  };
 
   return (
     <>
@@ -65,6 +64,7 @@ function HomeScreen({ navigation }) {
           style={styles.lottie}
           source={require("../../assets/lottie/34452-hi-button-animation.json")}
           autoPlay
+          loop={loop}
         />
         <Text style={styles.title}>
           Welcome to <Text style={styles.caring}>Caring</Text>
