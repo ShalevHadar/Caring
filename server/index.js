@@ -34,7 +34,36 @@ app.get("/", (req, res) => {
 
 app.post("/api/getPin", (req, res) => {
   const { email } = req.body;
+  mysqlConnection.query(
+    `SELECT * FROM students WHERE email = '${email}'`,
+    (err, results, field) => {
+      if (results.length === 1) {
+        const [{ pincode, firstname, class_id }] = results;
+        res.status(200).json({ pincode, firstname, class_id });
+      } else {
+        res.status(404).json("email was not found");
+      }
+    }
+  );
+});
 
+app.post("/api/getStudentData", (req, res) => {
+  const { email } = req.body;
+  mysqlConnection.query(
+    `SELECT * FROM students WHERE email = '${email}'`,
+    (err, results, field) => {
+      if (results.length === 1) {
+        const [{ pincode, firstname }] = results;
+        res.status(200).json({ pincode, firstname });
+      } else {
+        res.status(404).json("email was not found");
+      }
+    }
+  );
+});
+
+app.post("/api/get", (req, res) => {
+  const { email } = req.body;
   mysqlConnection.query(
     `SELECT * FROM students WHERE email = '${email}'`,
     (err, results, field) => {
@@ -54,7 +83,7 @@ app.post("/api/createPinByEmail", (req, res) => {
     `SELECT * FROM students WHERE email = '${email}'`,
     (err, results, field) => {
       //console.log(results);
-      if (results) {
+      if (results.length == 1) {
         const pin = generatePin();
         modifyUserPin(email, pin);
         res.status(200).json(results);

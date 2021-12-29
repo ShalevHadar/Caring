@@ -44,6 +44,7 @@ const AnimatedExample = ({ navigation, email }) => {
   const [handleWrongPin, setHandleWrongPin] = useState("");
   const [pincode, setPincode] = useState();
   const [fName, setFName] = useState();
+  const [classId, setClassId] = useState();
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -55,8 +56,9 @@ const AnimatedExample = ({ navigation, email }) => {
     await handleApi
       .post("/getPin", { email })
       .then(function (response) {
-        const { pincode } = response.data;
-        const { firstname } = response.data;
+        console.log(response.data);
+        const { pincode, firstname, class_id } = response.data;
+        setClassId(class_id);
         setFName(firstname);
         setPincode(pincode);
       })
@@ -70,7 +72,7 @@ const AnimatedExample = ({ navigation, email }) => {
     if (value.length === 4) {
       setShowText(false);
       if (pincode == value || value == 1111) {
-        navigation.navigate("Incident", { email, fName });
+        navigation.navigate("Incident", { email, fName, classId });
       } else {
         setShowText(true);
         setHandleWrongPin(`Wrong Pincode`);

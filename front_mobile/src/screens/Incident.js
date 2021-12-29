@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, TextInput, Text, Pressable } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-//import styles from "./styles";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 import styles from "../style/IncidentStyle";
 
 const Incident = ({ route }) => {
-  const { fName } = route.params;
+  const { fName, email, classId } = route.params;
   const [isAnonymous, setIsAnonymous] = useState(false);
+  const [loop, setLoop] = useState(true);
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    let timer = setTimeout(() => setLoop(false), 10000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {});
 
   const setName = () => {
     setIsAnonymous(!isAnonymous);
@@ -17,6 +27,8 @@ const Incident = ({ route }) => {
   const Capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
+
+  const handleSubmit = () => {};
 
   return (
     <KeyboardAwareScrollView
@@ -28,6 +40,7 @@ const Incident = ({ route }) => {
         style={styles.lottie}
         source={require("../../assets/lottie/89023-loading-circles.json")}
         autoPlay
+        loop={loop}
       />
       <BouncyCheckbox
         style={{ marginBottom: 15 }}
@@ -41,15 +54,22 @@ const Incident = ({ route }) => {
       />
       <View style={styles.identifyContainer}>
         <Text style={styles.identifyText}>
-          {isAnonymous ? Capitalize(fName) : "Anonymous"}
+          {isAnonymous
+            ? Capitalize(fName) + ", " + classId + "th Grade"
+            : "Anonymous"}
         </Text>
       </View>
       <TextInput
         multiline={true}
         style={styles.input}
+        autoCorrect={false}
         placeholder="Tell us what happened.."
+        value={content}
+        onChangeText={(e) => {
+          setContent(e);
+        }}
       />
-      <Pressable style={styles.button}>
+      <Pressable style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Send</Text>
       </Pressable>
     </KeyboardAwareScrollView>

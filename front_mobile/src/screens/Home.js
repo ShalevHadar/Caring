@@ -95,17 +95,18 @@ function HomeScreen({ navigation }) {
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
         {/*  just to test the app */}
-        {/* <Pressable
+        <Pressable
           style={{ paddingTop: 40 }}
           onPress={() =>
             navigation.navigate("Incident", {
-              email: "shalev",
+              email: "a@a.co",
               fName: "shalev",
+              classId: 5,
             })
           }
         >
           <Text style={{ fontSize: 30 }}>yo</Text>
-        </Pressable> */}
+        </Pressable>
 
         <Pressable
           style={styles.trustText}

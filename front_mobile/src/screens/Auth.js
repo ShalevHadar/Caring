@@ -9,9 +9,7 @@ function Auth({ navigation, route }) {
   useEffect(() => {
     handleApi
       .post("/sendEmail", { email })
-      .then(function (response) {
-        console.log(response.data);
-      })
+      .then()
       .catch(function (error) {
         console.log(error);
       });
