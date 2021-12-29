@@ -48,21 +48,55 @@ app.post("/api/getPin", (req, res) => {
   );
 });
 
-app.post("/api/sendVerification", (req, res) => {
+app.post("/api/createPinByEmail", (req, res) => {
   const { email } = req.body;
-
   mysqlConnection.query(
     `SELECT * FROM students WHERE email = '${email}'`,
     (err, results, field) => {
-      console.log(results);
+      //console.log(results);
       if (results.length === 1) {
+        const pin = generatePin();
+        modifyUserPin(email, pin);
         res.status(200).json(results);
       } else {
         res.status(404).json("email was not found");
       }
     }
   );
+});
 
+app.post("/api/sendEmail", (req, res) => {
+  const { email } = req.body;
+  mysqlConnection.query(
+    `SELECT pincode FROM students WHERE email = '${email}'`,
+    (err, results, field) => {
+      if (results.length === 1) {
+        const [{ pincode }] = results;
+        sendEmailFunction(email, pincode);
+        res.status(200).json(results);
+      } else {
+        res.status(404).json("pin");
+      }
+    }
+  );
+});
+
+const generatePin = () => {
+  return Math.floor(1000 + Math.random() * 9000);
+};
+
+const modifyUserPin = (email, pin) => {
+  mysqlConnection.query(
+    `UPDATE students SET pincode = ${pin} WHERE email = '${email}'`,
+    (err, results, field) => {
+      if (err) {
+        return err.message;
+      }
+    }
+  );
+};
+
+const sendEmailFunction = (email, pincode) => {
   var transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -75,18 +109,15 @@ app.post("/api/sendVerification", (req, res) => {
     from: "Your best friend",
     to: `${email}`,
     subject: "Hey ! this is your pin code for Caring",
-    text: "That was easy!",
+    text: `Hi there ! \n this is your pincode please insert it: \n ${pincode}`,
   };
 
-  // transporter.sendMail(mailOptions, function (error, info) {
-  //   if (error) {
-  //     res.status(404).send({ message: error.message });
-  //   } else {
-  //     console.log(info);
-  //     res.status(200).send({ message: "well done ! email sent" });
-  //   }
-  // });
-});
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      res.status(404).send({ message: error.message });
+    }
+  });
+};
 
 app.listen(port, () => {
   console.log(`Starting server at http://localhost:${port}`);

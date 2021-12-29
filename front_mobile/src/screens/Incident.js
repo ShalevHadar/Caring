@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Image, Text, StyleSheet } from "react-native";
+import { View, TextInput, Text, Pressable } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 //import styles from "./styles";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -26,15 +26,15 @@ const Incident = ({ route }) => {
     >
       <LottieView
         style={styles.lottie}
-        source={require("../../assets/lottie/74391-hearts-loading-tiktok-style.json")}
+        source={require("../../assets/lottie/89023-loading-circles.json")}
         autoPlay
       />
       <BouncyCheckbox
-        style={{ marginBottom: 20 }}
-        size={22}
+        style={{ marginBottom: 15 }}
+        size={26}
         isChecked={isAnonymous}
         onPress={() => setName()}
-        fillColor="#48acdf"
+        fillColor="#DFD3C3"
         unfillColor="#FFFFFF"
         text="Do you want to identify yourself?"
         textStyle={{ fontSize: 22, textDecorationLine: "none" }}
@@ -49,6 +49,9 @@ const Incident = ({ route }) => {
         style={styles.input}
         placeholder="Tell us what happened.."
       />
+      <Pressable style={styles.button}>
+        <Text style={styles.buttonText}>Send</Text>
+      </Pressable>
     </KeyboardAwareScrollView>
   );
 };

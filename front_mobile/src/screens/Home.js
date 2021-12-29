@@ -1,6 +1,13 @@
 import LottieView from "lottie-react-native";
-import React, { useState } from "react";
-import { Text, View, Pressable, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  Pressable,
+  TextInput,
+  Animated,
+  Easing,
+} from "react-native";
 import handleApi from "../api/handleApi";
 import styles from "../style/HomeStyle";
 
@@ -9,6 +16,7 @@ function HomeScreen({ navigation }) {
   const [flag, setFlag] = useState(false);
   const [showText, setShowText] = useState(false);
   const [handleEmailsSTR, setHandleEmailsSTR] = useState("");
+  const [progress, setProgress] = useState(new Animated.Value(0));
 
   // validating the email with front Regex
   const validate = (text) => {
@@ -20,11 +28,11 @@ function HomeScreen({ navigation }) {
     }
   };
 
-  // handle post function send email to server
+  // handle post function
   const handlePost = async () => {
     await handleApi
-      .post("/sendVerification", { email })
-      .then(function (response) {
+      .post("/createPinByEmail", { email })
+      .then(function () {
         setShowText(false);
         navigation.navigate("Auth", { email: email });
       })
@@ -42,6 +50,14 @@ function HomeScreen({ navigation }) {
     setShowText(true);
   };
 
+  useEffect(() => {
+    handleProgress;
+  }, []);
+
+  const handleProgress = (progress) => {
+    Animated.timing(progress).start();
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -49,8 +65,6 @@ function HomeScreen({ navigation }) {
           style={styles.lottie}
           source={require("../../assets/lottie/34452-hi-button-animation.json")}
           autoPlay
-          loop
-          progress={100}
         />
         <Text style={styles.title}>
           Welcome to <Text style={styles.caring}>Caring</Text>
@@ -80,6 +94,18 @@ function HomeScreen({ navigation }) {
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
+        {/*  just to test the app */}
+        {/* <Pressable
+          style={{ paddingTop: 40 }}
+          onPress={() =>
+            navigation.navigate("Incident", {
+              email: "shalev",
+              fName: "shalev",
+            })
+          }
+        >
+          <Text style={{ fontSize: 30 }}>yo</Text>
+        </Pressable> */}
 
         <Pressable
           style={styles.trustText}

@@ -8,14 +8,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   identifyContainer: {
-    borderColor: "white",
+    borderColor: "#DFD3C3",
     borderRadius: 20,
     borderWidth: 2,
     padding: 10,
     width: 340,
     maxWidth: 340,
     marginBottom: 20,
-    backgroundColor: "#48acdf",
   },
   identifyText: {
     fontSize: 25,
@@ -26,9 +25,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
     borderRadius: 20,
-    borderColor: "#48acdf",
-    borderWidth: 1,
-    height: 320,
+    borderColor: "#DFD3C3",
+    borderWidth: 2,
+    height: 220,
     width: 340,
     maxWidth: 340,
     padding: 20,
@@ -36,8 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   lottie: {
-    position: "absolute",
-    bottom: 220,
+    position: "relative",
     height: 100,
   },
   button: {
