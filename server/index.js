@@ -7,9 +7,12 @@ const routes = require("./routes/routes");
 const mySql = require("./mysql/config");
 const port = process.env.PORT;
 
+// const pincodeAuthRoutes = require('./pincode-auth/routes');
+
 // middleware
 app.use(express.json());
 app.use(cors());
+// app.use(pincodeAuthRoutes);
 app.use(routes);
 
 // connection to mysql server

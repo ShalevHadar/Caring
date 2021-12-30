@@ -1,5 +1,4 @@
 const express = require("express");
-const mySql = require("../mysql/config");
 const router = express.Router();
 const { setStudentPinCode } = require("./auth-service");
 
@@ -14,5 +13,5 @@ router.post("/api/createPinByEmail", async (req, res) => {
   }
 });
 
-
+module.exports = router;
 
