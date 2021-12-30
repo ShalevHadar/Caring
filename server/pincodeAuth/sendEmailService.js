@@ -9,8 +9,6 @@ const sendEmailWithPinCode = async (email) => {
       sendEmailFunction(email, pincode);
     })
     .catch((err) => console.log(err));
-
-  // sendEmailFunction(email, pincode);
 };
 
 module.exports = {
