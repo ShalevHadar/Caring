@@ -42,9 +42,7 @@ const AnimatedExample = ({ navigation, email }) => {
   const [value, setValue] = useState("");
   const [showText, setShowText] = useState(false);
   const [handleWrongPin, setHandleWrongPin] = useState("");
-  const [pincode, setPincode] = useState();
-  const [fName, setFName] = useState();
-  const [classId, setClassId] = useState();
+  const [studentData, setStudentData] = useState();
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -54,15 +52,11 @@ const AnimatedExample = ({ navigation, email }) => {
   // get pincode & Fname of user from db upon entering the screen
   useEffect(async () => {
     await handleApi
-      .post("/getPin", { email })
+      .post("/getStudentInfo", { email })
       .then(function (response) {
-        // TODO: just for me - reminder to remove
-        // also to think if passing full object is better
-        console.log(response.data);
-        const { pincode, firstname, class_id } = response.data;
-        setClassId(class_id);
-        setFName(firstname);
-        setPincode(pincode);
+        const [obj] = response.data;
+        console.log(obj);
+        setStudentData(obj);
       })
       .catch(function (error) {
         console.log(error);
@@ -73,8 +67,8 @@ const AnimatedExample = ({ navigation, email }) => {
   const handleSubmit = async () => {
     if (value.length === 4) {
       setShowText(false);
-      if (pincode == value || value == 1111) {
-        navigation.navigate("Incident", { email, fName, classId });
+      if (studentData.pincode == value || value == 1111) {
+        navigation.navigate("Incident", { studentData });
       } else {
         setShowText(true);
         setHandleWrongPin(`Wrong Pincode`);

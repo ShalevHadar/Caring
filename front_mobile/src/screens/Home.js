@@ -24,8 +24,9 @@ function HomeScreen({ navigation }) {
   // handle post function
   const handlePost = async () => {
     await handleApi
-      .post("/createPinByEmail", { email })
-      .then(function () {
+      .post("/setStudentPinCode", { email })
+      .then(function (res) {
+        console.log(res.data);
         setShowText(false);
         navigation.navigate("Auth", { email: email });
       })
@@ -94,7 +95,7 @@ function HomeScreen({ navigation }) {
             navigation.navigate("Incident", {
               email: "a@a.co",
               fName: "shalev",
-              classId: 5,
+              classId: 51,
             })
           }
         >

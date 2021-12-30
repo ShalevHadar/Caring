@@ -4,9 +4,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 import styles from "../style/IncidentStyle";
+import handleApi from "../api/handleApi";
 
 const Incident = ({ route }) => {
-  const { fName, email, classId } = route.params;
+  const { studentData } = route.params;
+  const { pincode, firstname, class_id } = studentData;
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [loop, setLoop] = useState(true);
   const [content, setContent] = useState("");
@@ -24,6 +26,12 @@ const Incident = ({ route }) => {
 
   const Capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  const handleClassId = (str) => {
+    const grade = str.toString();
+    if (grade.length == 2) return grade.charAt(0);
+    else return grade.substring(0, 2);
   };
 
   const handleSubmit = () => {};
@@ -53,7 +61,10 @@ const Incident = ({ route }) => {
       <View style={styles.identifyContainer}>
         <Text style={styles.identifyText}>
           {isAnonymous
-            ? Capitalize(fName) + ", " + classId + "th Grade"
+            ? Capitalize(firstname) +
+              ", " +
+              handleClassId(class_id) +
+              "th Grade"
             : "Anonymous"}
         </Text>
       </View>

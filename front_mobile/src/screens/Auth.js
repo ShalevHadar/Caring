@@ -8,8 +8,8 @@ function Auth({ navigation, route }) {
   const { email } = route.params;
   useEffect(() => {
     handleApi
-      .post("/sendEmail", { email })
-      .then()
+      .post("/sendVerificationEmail", { email })
+      .then((res) => console.log(res.data))
       .catch(function (error) {
         console.log(error);
       });
