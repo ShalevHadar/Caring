@@ -1,10 +1,10 @@
 const express = require("express");
 const { getStudentQuery } = require("../queries/studentQuery");
-const { setStudentPinCode } = require("../pincode-auth/authService");
-const { sendEmailWithPinCode } = require("../pincode-auth/sendEmailService");
+const { setStudentPinCode } = require("../pincodeAuth/authService");
+const { sendEmailWithPinCode } = require("../pincodeAuth/sendEmailService");
 const router = express.Router();
 
-// routes
+// http request, set student pincode
 router.post("/api/setStudentPinCode", async (req, res) => {
   try {
     const { email } = req.body;
@@ -15,6 +15,7 @@ router.post("/api/setStudentPinCode", async (req, res) => {
   }
 });
 
+// http request, send verification email to student with pincode
 router.post("/api/sendVerificationEmail", async (req, res) => {
   try {
     const { email } = req.body;
@@ -25,6 +26,7 @@ router.post("/api/sendVerificationEmail", async (req, res) => {
   }
 });
 
+// get student info - generic query by email (unique)
 router.post("/api/getStudentInfo", async (req, res) => {
   try {
     const { email } = req.body;
@@ -35,6 +37,13 @@ router.post("/api/getStudentInfo", async (req, res) => {
   }
 });
 
-//router.post("/api/createIncident", createIncident);
+// create Incident field in DB
+router.post("/api/createIncident", async (req, res) => {
+  try {
+    console.log("yo");
+  } catch (error) {
+    console.log(err);
+  }
+});
 
 module.exports = router;

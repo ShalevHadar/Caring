@@ -6,7 +6,6 @@ const cors = require("cors");
 const routes = require("./routes/routes");
 const mySql = require("./mysql/config");
 const port = process.env.PORT;
-const authService = require("./pincode-auth/authService");
 
 // middleware
 app.use(express.json());

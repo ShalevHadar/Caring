@@ -1,3 +1,4 @@
+// query for student info by email
 const mysqlConnection = require("../mysql/config");
 
 const getStudentQuery = async (email) => {

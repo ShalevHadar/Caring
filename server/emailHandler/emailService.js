@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 
+// send email function - self explanatory
 const sendEmailFunction = (email, pincode) => {
   var transporter = nodemailer.createTransport({
     service: "gmail",
