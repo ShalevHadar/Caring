@@ -18,8 +18,6 @@ const Incident = ({ route }) => {
     };
   }, []);
 
-  useEffect(() => {});
-
   const setName = () => {
     setIsAnonymous(!isAnonymous);
   };

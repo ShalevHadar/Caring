@@ -56,6 +56,8 @@ const AnimatedExample = ({ navigation, email }) => {
     await handleApi
       .post("/getPin", { email })
       .then(function (response) {
+        // TODO: just for me - reminder to remove
+        // also to think if passing full object is better
         console.log(response.data);
         const { pincode, firstname, class_id } = response.data;
         setClassId(class_id);

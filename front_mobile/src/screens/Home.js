@@ -1,13 +1,6 @@
 import LottieView from "lottie-react-native";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  Animated,
-  Easing,
-} from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, Pressable, TextInput } from "react-native";
 import handleApi from "../api/handleApi";
 import styles from "../style/HomeStyle";
 
@@ -51,7 +44,7 @@ function HomeScreen({ navigation }) {
   };
 
   useEffect(() => {
-    let timer = setTimeout(() => setLoop(false), 10000);
+    const timer = setTimeout(() => setLoop(false), 10000);
     return () => {
       clearTimeout(timer);
     };
@@ -94,8 +87,8 @@ function HomeScreen({ navigation }) {
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
-        {/*  just to test the app */}
-        <Pressable
+        {/* TODO: just for me - reminder to remove */}
+        {/* <Pressable
           style={{ paddingTop: 40 }}
           onPress={() =>
             navigation.navigate("Incident", {
@@ -106,7 +99,7 @@ function HomeScreen({ navigation }) {
           }
         >
           <Text style={{ fontSize: 30 }}>yo</Text>
-        </Pressable>
+        </Pressable> */}
 
         <Pressable
           style={styles.trustText}
