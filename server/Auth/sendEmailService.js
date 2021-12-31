@@ -1,5 +1,5 @@
-const { getStudentByEmail } = require("../mysql/student");
-const { sendEmail } = require("../email/emailService");
+const { getStudentByEmail } = require("../Mysql/student");
+const { sendEmail } = require("../Email/emailService");
 
 // send email to the email we got from the student query
 const sendEmailWithPinCode = async (email) => {

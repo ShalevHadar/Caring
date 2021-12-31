@@ -1,5 +1,5 @@
 const express = require("express");
-const { getStudentByEmail } = require("../mysql/student");
+const { getStudentByEmail } = require("../Mysql/student");
 const { setStudentPinCode } = require("../Auth/authService");
 const { sendEmailWithPinCode } = require("../Auth/sendEmailService");
 const router = express.Router();
@@ -36,7 +36,5 @@ router.post("/api/getStudentInfo", async (req, res) => {
     res.status(404).json("email was not found");
   }
 });
-
-
 
 module.exports = router;

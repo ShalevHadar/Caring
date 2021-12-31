@@ -3,9 +3,9 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
-const mySql = require("./mysql/client");
+const mySql = require("./Mysql/client");
 const authRoutes = require("./Auth/routes");
-const incidentRoutes = require("./incidents/routes");
+const incidentRoutes = require("./Incidents/routes");
 const port = process.env.PORT;
 
 // middleware
@@ -24,5 +24,3 @@ mySql.connect((err) => {
     throw new Error("Can't connect to the server");
   }
 });
-
-// listening

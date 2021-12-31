@@ -1,4 +1,4 @@
-const mysqlConnection = require("../mysql/client");
+const mysqlConnection = require("../Mysql/client");
 
 // generate a new pin and set it into the student dedicated field
 const setStudentPinCode = async (email) => {
