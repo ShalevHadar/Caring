@@ -17,12 +17,17 @@ const sendEmail = (data) => {
       pincode: data.pincode,
       email: data.email,
     };
-    transporter.sendMail(pincodeEmailOptions(dataObj), function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log("Email sent to the student");
-      }
+    return new Promise((resolve, reject) => {
+      transporter.sendMail(
+        pincodeEmailOptions(dataObj),
+        function (error, info) {
+          if (error) {
+            reject(error.message);
+          } else {
+            resolve(true);
+          }
+        }
+      );
     });
   }
 };

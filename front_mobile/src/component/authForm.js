@@ -42,34 +42,26 @@ const AnimatedExample = ({ navigation, email }) => {
   const [value, setValue] = useState("");
   const [showText, setShowText] = useState(false);
   const [handleWrongPin, setHandleWrongPin] = useState("");
-  const [studentData, setStudentData] = useState();
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
 
-  // get pincode & Fname of user from db upon entering the screen
-  useEffect(async () => {
-    await handleApi
-      .post("/getStudentInfo", { email })
-      .then(function (response) {
-        const [obj] = response.data;
-        console.log(obj);
-        setStudentData(obj);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
   // handle the submit button
   const handleSubmit = async () => {
     if (value.length === 4) {
       setShowText(false);
-      if (studentData.pincode == value || value == 1111) {
-        navigation.navigate("Incident", { studentData });
-      } else {
+      try {
+        const response = await handleApi.post("/auth", {
+          email,
+          pincode: value,
+        });
+        if (response.status === 200) {
+          const student = response.data.student;
+          navigation.navigate("Incident", { student });
+        }
+      } catch (error) {
         setShowText(true);
         setHandleWrongPin(`Wrong Pincode`);
       }

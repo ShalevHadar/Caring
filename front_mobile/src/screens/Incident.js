@@ -4,11 +4,10 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 import styles from "../style/IncidentStyle";
-import handleApi from "../api/handleApi";
 
 const Incident = ({ route }) => {
-  const { studentData } = route.params;
-  const { pincode, firstname, class_id } = studentData;
+  const { student } = route.params;
+  const { firstname, class_id } = student;
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [loop, setLoop] = useState(true);
   const [content, setContent] = useState("");

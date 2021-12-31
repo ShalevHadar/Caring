@@ -3,13 +3,10 @@ const { sendEmail } = require("../Email/emailService");
 
 // send email to the email we got from the student query
 const sendEmailWithPinCode = async (email) => {
-  getStudentByEmail(email)
-    .then((res) => {
-      const [{ pincode }] = res;
-      const data = { pincode, email, message: "sendPincode" };
-      sendEmail(data);
-    })
-    .catch((err) => console.log(err));
+  const student = await getStudentByEmail(email);
+  const { pincode } = student;
+  const data = { pincode, email, message: "sendPincode" };
+  await sendEmail(data);
 };
 
 module.exports = {

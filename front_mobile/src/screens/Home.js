@@ -24,11 +24,10 @@ function HomeScreen({ navigation }) {
   // handle post function
   const handlePost = async () => {
     await handleApi
-      .post("/setStudentPinCode", { email })
+      .post("/auth/pincode", { email })
       .then(function (res) {
-        console.log(res.data);
         setShowText(false);
-        navigation.navigate("Auth", { email: email });
+        navigation.navigate("Auth", { email });
       })
       .catch(function (error) {
         if (error.response.status > 400) {
