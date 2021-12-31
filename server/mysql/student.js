@@ -1,7 +1,7 @@
 // query for student info by email
-const mysqlConnection = require("../mysql/config");
+const mysqlConnection = require("./client");
 
-const getStudentQuery = async (email) => {
+const getStudentByEmail  = async (email) => {
   return new Promise((resolve, reject) => {
     mysqlConnection.query(
       `SELECT * FROM students WHERE email = '${email}'`,
@@ -20,5 +20,5 @@ const getStudentQuery = async (email) => {
 };
 
 module.exports = {
-  getStudentQuery,
+  getStudentByEmail ,
 };

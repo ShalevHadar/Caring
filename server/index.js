@@ -3,14 +3,16 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
-const routes = require("./routes/routes");
-const mySql = require("./mysql/config");
+const mySql = require("./mysql/client");
+const authRoutes = require("./Auth/routes");
+const incidentRoutes = require("./incidents/routes");
 const port = process.env.PORT;
 
 // middleware
 app.use(express.json());
 app.use(cors());
-app.use(routes);
+app.use(authRoutes);
+app.use(incidentRoutes);
 
 // connection to mysql server
 mySql.connect((err) => {
