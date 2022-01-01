@@ -6,9 +6,6 @@ const createIncidentInDB = async (data) => {
     mysqlConnection.query(
       `INSERT INTO incidents values (${data.incident_id}, ${data.student_id},${data.teacher_id}, ${data.class_id}, '${data.content}', '${data.teacher_response}', '${data.admission_date}', ${data.completed})`,
       (err, results, field) => {
-        console.log(err);
-        console.log(results);
-        console.log(field);
         if (err) {
           reject(err);
         } else {
