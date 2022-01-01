@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, TextInput, Text, Pressable } from "react-native";
+import { View, TextInput, Text, Pressable, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 import styles from "../style/IncidentStyle";
+import handleApi from "../api/handleApi";
 
 const Incident = ({ route }) => {
   const { student } = route.params;
-  const { firstname, class_id } = student;
+  const { student_id, firstname, class_id } = student;
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [loop, setLoop] = useState(true);
   const [content, setContent] = useState("");
@@ -33,7 +34,31 @@ const Incident = ({ route }) => {
     else return grade.substring(0, 2);
   };
 
-  const handleSubmit = () => {};
+  const handleButton = () =>
+    Alert.alert(
+      "Message verification",
+      "Are you sure you want to send the incident?",
+      [
+        {
+          text: "No",
+          onPress: () => false,
+          style: "cancel",
+        },
+        { text: "Yes", onPress: () => sendIncident() },
+      ]
+    );
+
+  const handleSubmit = () => {
+    handleButton();
+  };
+
+  const sendIncident = () => {
+    const date = new Date().toISOString().slice(0, 19).replace("T", " ");
+    handleApi
+      .post("/incident", { content, student_id, class_id, date })
+      .then()
+      .catch((err) => console.log(err));
+  };
 
   return (
     <KeyboardAwareScrollView
