@@ -12,6 +12,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 250,
   },
+  lottie2: {
+    position: "absolute",
+    zIndex: -1,
+    top: 100,
+    width: 250,
+  },
   title: {
     fontSize: 40,
     fontWeight: "bold",
