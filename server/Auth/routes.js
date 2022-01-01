@@ -3,8 +3,7 @@ const { setStudentPinCode, authenticate } = require("../Auth/authService");
 const { sendEmailWithPinCode } = require("../Auth/sendEmailService");
 const router = express.Router();
 
-// http request, set student pincode
-
+// http post request, set student pincode & send email
 router.post("/api/auth/pincode", async (req, res) => {
   try {
     const { email } = req.body;
@@ -16,6 +15,7 @@ router.post("/api/auth/pincode", async (req, res) => {
   }
 });
 
+// http post request, verify the pincode
 router.post("/api/auth", async (req, res) => {
   try {
     const { email, pincode } = req.body;
