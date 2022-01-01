@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
-const mySql = require("./Mysql/client");
+const dbClient = require("./Mysql/client");
 const authRoutes = require("./Auth/routes");
 const incidentRoutes = require("./Incidents/routes");
 const port = process.env.PORT;
@@ -15,7 +15,7 @@ app.use(authRoutes);
 app.use(incidentRoutes);
 
 // connection to mysql server
-mySql.connect((err) => {
+dbClient.connect((err) => {
   if (!err) {
     app.listen(port, () => {
       console.log(`Starting server at http://localhost:${port}`);
