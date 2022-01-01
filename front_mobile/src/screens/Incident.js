@@ -35,7 +35,7 @@ const Incident = ({ route }) => {
     else return grade.substring(0, 2);
   };
 
-  const handleButtonAlert = () =>
+  const handleSendingAlert = () =>
     Alert.alert(
       "Message verification",
       "Are you sure you want to send the incident?",
@@ -49,8 +49,11 @@ const Incident = ({ route }) => {
       ]
     );
 
+  const handleSuccessAlert = () =>
+    Alert.alert("Incident sent", "Let's take you to your dashboard");
+
   const handleSubmit = async () => {
-    await handleButtonAlert();
+    await handleSendingAlert();
   };
 
   const sendIncident = async () => {
@@ -61,6 +64,7 @@ const Incident = ({ route }) => {
       .then((res) => console.log(res.status))
       .catch((err) => console.log(err));
     setLoading(false);
+    handleSuccessAlert();
   };
 
   return (
