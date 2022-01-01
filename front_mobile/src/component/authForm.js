@@ -1,6 +1,6 @@
 import { Animated, Image, Pressable, SafeAreaView, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-
+import LottieView from "lottie-react-native";
 import {
   CodeField,
   Cursor,
@@ -41,6 +41,7 @@ const animateCell = ({ hasValue, index, isFocused }) => {
 const AnimatedExample = ({ navigation, email }) => {
   const [value, setValue] = useState("");
   const [showText, setShowText] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [handleWrongPin, setHandleWrongPin] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -51,6 +52,7 @@ const AnimatedExample = ({ navigation, email }) => {
   // handle the submit button
   const handleSubmit = async () => {
     if (value.length === 4) {
+      setLoading(true);
       setShowText(false);
       try {
         const response = await handleApi.post("/auth", {
@@ -58,10 +60,12 @@ const AnimatedExample = ({ navigation, email }) => {
           pincode: value,
         });
         if (response.status === 200) {
+          setLoading(false);
           const student = response.data.student;
           navigation.navigate("Incident", { student });
         }
       } catch (error) {
+        setLoading(false);
         setShowText(true);
         setHandleWrongPin(`Wrong Pincode`);
       }
@@ -139,7 +143,14 @@ const AnimatedExample = ({ navigation, email }) => {
         renderCell={renderCell}
       />
       <Text style={styles.warningText}>{showText ? handleWrongPin : ""}</Text>
-
+      {loading ? (
+        <LottieView
+          style={styles.lottie2}
+          source={require("../../assets/lottie/78259-loading.json")}
+          autoPlay
+          loop
+        />
+      ) : null}
       <Pressable style={styles.nextButton} onPress={() => handleSubmit()}>
         <Text style={styles.nextButtonText}>Verify</Text>
       </Pressable>
