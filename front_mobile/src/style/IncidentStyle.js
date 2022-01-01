@@ -38,8 +38,16 @@ const styles = StyleSheet.create({
     position: "relative",
     height: 100,
   },
+
+  lottie2: {
+    position: "absolute",
+    zIndex: -1,
+    width: 300,
+    top: 150,
+    alignSelf: "center",
+  },
   button: {
-    marginTop: 30,
+    marginTop: 55,
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 4,

@@ -12,6 +12,7 @@ const Incident = ({ route }) => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [loop, setLoop] = useState(true);
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let timer = setTimeout(() => setLoop(false), 10000);
@@ -34,7 +35,7 @@ const Incident = ({ route }) => {
     else return grade.substring(0, 2);
   };
 
-  const handleButton = () =>
+  const handleButtonAlert = () =>
     Alert.alert(
       "Message verification",
       "Are you sure you want to send the incident?",
@@ -48,16 +49,18 @@ const Incident = ({ route }) => {
       ]
     );
 
-  const handleSubmit = () => {
-    handleButton();
+  const handleSubmit = async () => {
+    await handleButtonAlert();
   };
 
-  const sendIncident = () => {
+  const sendIncident = async () => {
+    setLoading(true);
     const date = new Date().toISOString().slice(0, 19).replace("T", " ");
-    handleApi
-      .post("/incident", { content, student_id, class_id, date })
-      .then()
+    await handleApi
+      .post("/incident", { content, student_id, class_id, date, isAnonymous })
+      .then((res) => console.log(res.status))
       .catch((err) => console.log(err));
+    setLoading(false);
   };
 
   return (
@@ -102,6 +105,14 @@ const Incident = ({ route }) => {
           setContent(e);
         }}
       />
+      {loading ? (
+        <LottieView
+          style={styles.lottie2}
+          source={require("../../assets/lottie/78259-loading.json")}
+          autoPlay
+          loop
+        />
+      ) : null}
       <Pressable style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Send</Text>
       </Pressable>
