@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   lottie: {
-    position: "absolute",
+    //position: "absolute",
     bottom: 250,
   },
   paragraph: {
@@ -25,17 +25,12 @@ const styles = StyleSheet.create({
     top: 50,
     fontSize: 24,
   },
-  lineStyle: {
-    position: "absolute",
-    zIndex: -1,
-    top: 540,
-    left: -140,
-    maxHeight: 100,
-    maxHeight: 300,
+  homeButtonContainer: {
+    top: 120,
   },
-  backIcon: {
-    top: 200,
-    right: 140,
+  homeImage: {
+    width: 90,
+    height: 90,
   },
 });
 

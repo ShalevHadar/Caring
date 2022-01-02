@@ -17,16 +17,19 @@ function Trust({ navigation }) {
         To avoid false reports and misleading information, the system will
         confirm your email is located in the school database.{" "}
       </Text>
-      <Image
+      {/* <Image
         style={styles.lineStyle}
         source={require("../../assets/LineBlue.png")}
-      />
-      <Pressable
-        style={styles.backIcon}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Ionicons name="arrow-back" size={34} color="black" />
-      </Pressable>
+      /> */}
+      <View style={styles.homeButtonContainer}>
+        <Pressable onPress={() => navigation.navigate("Home")}>
+          <Image
+            style={styles.homeImage}
+            source={require("../../assets/returnHome.png")}
+          />
+          {/* <Ionicons name="arrow-back" size={34} color="black" /> */}
+        </Pressable>
+      </View>
     </View>
   );
 }

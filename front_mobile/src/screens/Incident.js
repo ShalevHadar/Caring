@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { View, TextInput, Text, Pressable, Alert } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+// import BouncyCheckbox from "react-native-bouncy-checkbox";
 import LottieView from "lottie-react-native";
 import styles from "../style/IncidentStyle";
 import handleApi from "../api/handleApi";
+import ModalDropdown from "react-native-modal-dropdown";
 
 const Incident = ({ route }) => {
   const { student } = route.params;
   const { student_id, firstname, class_id } = student;
-  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState("bool");
   const [loop, setLoop] = useState(true);
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,18 +22,8 @@ const Incident = ({ route }) => {
     };
   }, []);
 
-  const setName = () => {
-    setIsAnonymous(!isAnonymous);
-  };
-
   const Capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
-  };
-
-  const handleClassId = (str) => {
-    const grade = str.toString();
-    if (grade.length == 2) return grade.charAt(0);
-    else return grade.substring(0, 2);
   };
 
   const handleSendingAlert = () =>
@@ -52,11 +43,18 @@ const Incident = ({ route }) => {
   const handleSuccessAlert = () =>
     Alert.alert("Incident sent", "Let's take you to your dashboard");
 
+  const handleIdentifier = () =>
+    Alert.alert("You have to pick you identity", "Click on 'Choose Here'");
+
   const handleSubmit = async () => {
     await handleSendingAlert();
   };
 
   const sendIncident = async () => {
+    if (isAnonymous === "bool") {
+      handleIdentifier();
+      return;
+    }
     setLoading(true);
     const date = new Date().toISOString().slice(0, 19).replace("T", " ");
     await handleApi
@@ -79,26 +77,25 @@ const Incident = ({ route }) => {
         autoPlay
         loop={loop}
       />
-      <BouncyCheckbox
-        style={{ marginBottom: 15 }}
-        size={26}
-        isChecked={isAnonymous}
-        onPress={() => setName()}
-        fillColor="#DFD3C3"
-        unfillColor="#FFFFFF"
-        text="Do you want to identify yourself?"
-        textStyle={{ fontSize: 22, textDecorationLine: "none" }}
-      />
-      <View style={styles.identifyContainer}>
-        <Text style={styles.identifyText}>
-          {isAnonymous
-            ? Capitalize(firstname) +
-              ", " +
-              handleClassId(class_id) +
-              "th Grade"
-            : "Anonymous"}
-        </Text>
+
+      <View style={styles.pickAnonymous}>
+        <Text style={styles.textIdentify}>Identify as </Text>
+        <ModalDropdown
+          defaultValue="Choose Here"
+          textStyle={{ fontSize: 22, fontWeight: "bold" }}
+          options={["Anonymous", Capitalize(firstname)]}
+          dropdownTextStyle={{
+            fontSize: 22,
+            fontWeight: "bold",
+          }}
+          dropdownStyle={{ width: 150, maxWidth: 170, maxHeight: 100 }}
+          onSelect={(index, option) => {
+            // console.log(option);
+            index ? setIsAnonymous(false) : setIsAnonymous(true);
+          }}
+        />
       </View>
+
       <TextInput
         multiline={true}
         style={styles.input}

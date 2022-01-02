@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
   identifyText: {
     fontSize: 25,
     textAlign: "center",
+    color: "#0645AD",
+    fontWeight: "bold",
   },
   input: {
     backgroundColor: "#fff",
@@ -37,13 +39,14 @@ const styles = StyleSheet.create({
   lottie: {
     position: "relative",
     height: 100,
+    bottom: 10,
   },
 
   lottie2: {
     position: "absolute",
     zIndex: -1,
     width: 300,
-    top: 150,
+    top: 140,
     alignSelf: "center",
   },
   button: {
@@ -62,6 +65,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
+  },
+  textIdentify: {
+    fontSize: 22,
+    color: "#7A6C5D",
+  },
+  pickerStyle: {
+    width: 150,
+    height: 150,
+    backgroundColor: "grey",
+  },
+  pickAnonymous: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
   },
 });
 

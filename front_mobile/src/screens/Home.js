@@ -37,14 +37,14 @@ function HomeScreen({ navigation }) {
         if (error.response.status > 400) {
           setLoading(false);
           setShowText(true);
-          setHandleEmailsSTR(`your email isn't a part of the school db`);
+          setHandleEmailsSTR(`Oh No! We can't recognize this email`);
         }
       });
   };
 
   // if email isn't valid (Regex);
   const handleNotValidEmail = () => {
-    setHandleEmailsSTR(`your email isn't valid`);
+    setHandleEmailsSTR(`Your email address isn't valid`);
     setShowText(true);
   };
 

@@ -8,7 +8,7 @@ const createIncident = async (data) => {
     .catch((err) => console.log(err));
 
   let student_id = "";
-  if (!data.isAnonymous) {
+  if (data.isAnonymous) {
     student_id = null;
   } else {
     student_id = data.student_id;
