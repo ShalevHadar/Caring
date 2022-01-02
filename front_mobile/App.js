@@ -5,6 +5,7 @@ import HomeScreen from "./src/screens/Home";
 import AuthScreen from "./src/screens/Auth";
 import TrustScreen from "./src/screens/Trust";
 import Incident from "./src/screens/Incident";
+import Dashboard from "./src/screens/Dashboard";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +13,11 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
