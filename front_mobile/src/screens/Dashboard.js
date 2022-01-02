@@ -1,47 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, LogBox, ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
 import styles from "../style/DashboardStyle";
 import MyDataRow from "../component/MyDataRow";
 import { Modal, Portal, Provider } from "react-native-paper";
+import handleApi from "../api/handleApi";
+import stringifyNumber from "../functions/numberGrades";
 
-const Dashboard = () => {
+const Dashboard = ({ route }) => {
+  const { student_id } = route.params;
   const [visible, setVisible] = useState(false);
-  const [studentData, setStudentData] = useState({});
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+  const [singleIncident, setSingleIncident] = useState({});
 
   const containerStyle = { backgroundColor: "white", padding: 30 };
-  const [Incidents, setIncidents] = useState([
-    {
-      incident_id: 12124,
-      student_id: 123312,
-      teacher_name: "Ofek",
-      grade: "Fifth Grade",
-      content: "The Content",
-      teacher_response: "The Teacher Response",
-      admission_date: "01-01-2022",
-      status: false,
-    },
-  ]);
+  const [Incidents, setIncidents] = useState([]);
+
+  useEffect(async () => {
+    await handleApi
+      .get(`/incident/${student_id}`)
+      .then((res) => {
+        setIncidents(res.data.studentData);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const sendData = (index) => {
     showModal();
-    changeClass();
+    changeClass(index);
   };
 
-  const changeClass = () => {
-    setIncidents(
-      [...Incidents].map((object) => {
-        if (object.teacher_name == "Ofek") {
-          return {
-            ...object,
-            grade: "Seven Grade",
-          };
-        } else return object;
-      })
-    );
+  const changeClass = (index) => {
+    Incidents.map((object) => {
+      if (object.incident_id == index) {
+        setSingleIncident(object);
+      }
+    });
   };
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <View style={styles.container}>
@@ -79,16 +79,31 @@ const Dashboard = () => {
               contentContainerStyle={containerStyle}
             >
               <Text style={styles.InnerModalText}>
-                Incident ID: {Incidents[0].incident_id} {"\n"}
-                Date: {Incidents[0].student_id}
+                Incident ID: {singleIncident.incident_id} {"\n"}
+                Date:{" "}
+                {singleIncident.admission_date
+                  ? singleIncident.admission_date.substr(0, 10)
+                  : ""}
+                {/* {"\n"}
+                Student: {singleIncident.student_id} */}
                 {"\n"}
-                Student: {Incidents[0].student_id} {"\n"}
-                Teacher: {Incidents[0].teacher_name} {"\n"}
-                Grade: {Incidents[0].grade} {"\n"}
-                Content: {Incidents[0].content} {"\n"}
-                Teacher Response: {Incidents[0].teacher_response}
+                Teacher:{" "}
+                {singleIncident.teacher_id
+                  ? capitalizeFirstLetter(singleIncident.teacher_id)
+                  : ""}
                 {"\n"}
-                Status: {Incidents[0].status}
+                Grade:{" "}
+                {singleIncident.class_id
+                  ? capitalizeFirstLetter(
+                      stringifyNumber(singleIncident.class_id)
+                    ) + " Grade"
+                  : ""}
+                {"\n"}
+                Content: {singleIncident.content}
+                {"\n"}
+                Teacher Response: {singleIncident.teacher_response}
+                {"\n"}
+                Status: {singleIncident.completed}
                 {"\n"}
               </Text>
             </Modal>

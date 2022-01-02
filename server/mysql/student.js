@@ -19,6 +19,24 @@ const getStudentByEmail = async (email) => {
   });
 };
 
+const getIncidentsByStudentId = async (student_id) => {
+  return new Promise((resolve, reject) => {
+    mysqlConnection.query(
+      `SELECT * FROM incidents WHERE student_id = '${student_id}'`,
+      (err, results, field) => {
+        if (err) {
+          reject(err);
+        }
+        if (results.affectedRows == 0) {
+          reject(new Error(`no incidents with the student_id: ${student_id}`));
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+};
+
 const updateStudentPinCode = (email, pincode) => {
   return new Promise((resolve, reject) => {
     mysqlConnection.query(
@@ -36,4 +54,5 @@ const updateStudentPinCode = (email, pincode) => {
 module.exports = {
   getStudentByEmail,
   updateStudentPinCode,
+  getIncidentsByStudentId,
 };

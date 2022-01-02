@@ -19,6 +19,25 @@ const getTeacherIdByClassId = async (class_id) => {
   });
 };
 
+const getTeacherNameByTeacherId = async (teacher_id) => {
+  return new Promise((resolve, reject) => {
+    mysqlConnection.query(
+      `SELECT firstname FROM teachers WHERE teacher_id = '${teacher_id}'`,
+      (err, results, field) => {
+        if (err) {
+          reject(err);
+        }
+        if (results.affectedRows == 0) {
+          reject(new Error(`No teachers responsible for this class`));
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   getTeacherIdByClassId,
+  getTeacherNameByTeacherId,
 };

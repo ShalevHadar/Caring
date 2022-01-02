@@ -44,7 +44,7 @@ const Incident = ({ navigation, route }) => {
     Alert.alert("Incident Sent", "Taking you to your dashboard", [
       {
         text: "Lets Go",
-        onPress: () => navigation.navigate("Dashboard"),
+        onPress: () => navigation.navigate("Dashboard", { student_id }),
       },
     ]);
 

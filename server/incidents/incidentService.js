@@ -1,5 +1,9 @@
 const { createIncidentInDB } = require("../Mysql/incident");
-const { getTeacherIdByClassId } = require("../Mysql/teacher_id");
+const { getIncidentsByStudentId } = require("../mysql/student");
+const {
+  getTeacherIdByClassId,
+  getTeacherNameByTeacherId,
+} = require("../Mysql/teacher_id");
 
 const createIncident = async (data) => {
   let teacher_id = "";
@@ -9,25 +13,35 @@ const createIncident = async (data) => {
 
   let student_id = "";
   if (data.isAnonymous) {
-    student_id = null;
+    isAnonymous = true;
   } else {
-    student_id = data.student_id;
+    isAnonymous = false;
   }
 
   const incidentData = {
     incident_id: null,
-    student_id: student_id,
+    student_id: data.student_id,
     teacher_id,
     class_id: data.class_id,
     content: data.content,
     teacher_response: "",
     admission_date: data.date,
     completed: false,
+    isAnonymous,
   };
 
   await createIncidentInDB(incidentData);
 };
 
+const getIncidentsById = async (studentId) => {
+  const data = await getIncidentsByStudentId(studentId);
+  const [teacher] = await getTeacherNameByTeacherId(data[0].teacher_id);
+  console.log(teacher.firstname);
+  data.forEach((item) => (item.teacher_id = teacher.firstname));
+  return data;
+};
+
 module.exports = {
   createIncident,
+  getIncidentsById,
 };

@@ -8,14 +8,14 @@ const MyDataRow = ({ item, sendData }) => {
     <>
       <DataTable.Row
         style={styles.tableRow}
-        onPress={() => sendData(item.key_id)}
+        onPress={() => sendData(item.incident_id)}
       >
         <DataTable.Cell>{item.content}</DataTable.Cell>
         <DataTable.Cell style={styles.tableDate} numeric>
-          {item.date}
+          {item.admission_date.substr(0, 10)}
         </DataTable.Cell>
         <DataTable.Cell style={styles.tableStatus} numeric>
-          {item.status ? (
+          {item.completed ? (
             <AntDesign name="checkcircle" size={24} color="black" />
           ) : (
             <Entypo name="circle" size={24} color="black" />
