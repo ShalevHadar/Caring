@@ -1,6 +1,6 @@
 import { Animated, Image, Pressable, SafeAreaView, Text } from "react-native";
 import React, { useEffect, useState } from "react";
-
+import LottieView from "lottie-react-native";
 import {
   CodeField,
   Cursor,
@@ -41,41 +41,31 @@ const animateCell = ({ hasValue, index, isFocused }) => {
 const AnimatedExample = ({ navigation, email }) => {
   const [value, setValue] = useState("");
   const [showText, setShowText] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [handleWrongPin, setHandleWrongPin] = useState("");
-  const [pincode, setPincode] = useState();
-  const [fName, setFName] = useState();
-  const [classId, setClassId] = useState();
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
 
-  // get pincode & Fname of user from db upon entering the screen
-  useEffect(async () => {
-    await handleApi
-      .post("/getPin", { email })
-      .then(function (response) {
-        // TODO: just for me - reminder to remove
-        // also to think if passing full object is better
-        console.log(response.data);
-        const { pincode, firstname, class_id } = response.data;
-        setClassId(class_id);
-        setFName(firstname);
-        setPincode(pincode);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
   // handle the submit button
   const handleSubmit = async () => {
     if (value.length === 4) {
+      setLoading(true);
       setShowText(false);
-      if (pincode == value || value == 1111) {
-        navigation.navigate("Incident", { email, fName, classId });
-      } else {
+      try {
+        const response = await handleApi.post("/auth", {
+          email,
+          pincode: value,
+        });
+        if (response.status === 200) {
+          setLoading(false);
+          const student = response.data.student;
+          navigation.navigate("Incident", { student });
+        }
+      } catch (error) {
+        setLoading(false);
         setShowText(true);
         setHandleWrongPin(`Wrong Pincode`);
       }
@@ -153,7 +143,14 @@ const AnimatedExample = ({ navigation, email }) => {
         renderCell={renderCell}
       />
       <Text style={styles.warningText}>{showText ? handleWrongPin : ""}</Text>
-
+      {loading ? (
+        <LottieView
+          style={styles.lottie2}
+          source={require("../../assets/lottie/78259-loading.json")}
+          autoPlay
+          loop
+        />
+      ) : null}
       <Pressable style={styles.nextButton} onPress={() => handleSubmit()}>
         <Text style={styles.nextButtonText}>Verify</Text>
       </Pressable>

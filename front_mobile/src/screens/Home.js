@@ -10,6 +10,7 @@ function HomeScreen({ navigation }) {
   const [showText, setShowText] = useState(false);
   const [handleEmailsSTR, setHandleEmailsSTR] = useState("");
   const [loop, setLoop] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // validating the email with front Regex
   const validate = (text) => {
@@ -23,23 +24,27 @@ function HomeScreen({ navigation }) {
 
   // handle post function
   const handlePost = async () => {
+    setShowText(false);
+    setLoading(true);
     await handleApi
-      .post("/createPinByEmail", { email })
-      .then(function () {
+      .post("/auth/pincode", { email })
+      .then(function (res) {
+        setLoading(false);
         setShowText(false);
-        navigation.navigate("Auth", { email: email });
+        navigation.navigate("Auth", { email });
       })
       .catch(function (error) {
         if (error.response.status > 400) {
+          setLoading(false);
           setShowText(true);
-          setHandleEmailsSTR(`your email isn't a part of the school db`);
+          setHandleEmailsSTR(`Oh No! We can't recognize this email`);
         }
       });
   };
 
   // if email isn't valid (Regex);
   const handleNotValidEmail = () => {
-    setHandleEmailsSTR(`your email isn't valid`);
+    setHandleEmailsSTR(`Your email address isn't valid`);
     setShowText(true);
   };
 
@@ -76,6 +81,15 @@ function HomeScreen({ navigation }) {
             validate(e);
           }}
         />
+        {loading ? (
+          <LottieView
+            style={styles.lottie2}
+            source={require("../../assets/lottie/78259-loading.json")}
+            autoPlay
+            loop
+          />
+        ) : null}
+
         <Text style={styles.roseColor}>{showText ? handleEmailsSTR : ""}</Text>
 
         <Pressable
@@ -87,19 +101,6 @@ function HomeScreen({ navigation }) {
         >
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
-        {/* TODO: just for me - reminder to remove */}
-        {/* <Pressable
-          style={{ paddingTop: 40 }}
-          onPress={() =>
-            navigation.navigate("Incident", {
-              email: "a@a.co",
-              fName: "shalev",
-              classId: 5,
-            })
-          }
-        >
-          <Text style={{ fontSize: 30 }}>yo</Text>
-        </Pressable> */}
 
         <Pressable
           style={styles.trustText}

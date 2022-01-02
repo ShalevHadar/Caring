@@ -1,7 +1,0 @@
-TODO:
-- check Status code FOR EVERY request
-- update 1000 words on incident
-
-PROBLEMS:
-- What if someone will keep spamming request with wrong emails to server? for example
-spam a@g.com million times.

@@ -63,8 +63,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
   },
+  lottie2: {
+    position: "absolute",
+    zIndex: -1,
+    width: 300,
+    top: 84,
+    alignSelf: "center",
+  },
   nextButton: {
-    marginTop: 20,
+    marginTop: 30,
     borderRadius: 60,
     height: 50,
     backgroundColor: "#7A6C5D",

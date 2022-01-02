@@ -12,6 +12,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 250,
   },
+  lottie2: {
+    position: "absolute",
+    zIndex: -56756765671,
+    top: 100,
+    width: 250,
+  },
   title: {
     fontSize: 40,
     fontWeight: "bold",
@@ -22,12 +28,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   inputStyle: {
+    borderRadius: 20,
     height: 40,
     margin: 12,
     borderWidth: 1,
     padding: 10,
     width: 300,
     borderColor: "#7A6C5D",
+    color: "#0645AD",
   },
 
   button: {
