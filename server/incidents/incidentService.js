@@ -36,7 +36,6 @@ const createIncident = async (data) => {
 const getIncidentsById = async (studentId) => {
   const data = await getIncidentsByStudentId(studentId);
   const [teacher] = await getTeacherNameByTeacherId(data[0].teacher_id);
-  console.log(teacher.firstname);
   data.forEach((item) => (item.teacher_id = teacher.firstname));
   return data;
 };
