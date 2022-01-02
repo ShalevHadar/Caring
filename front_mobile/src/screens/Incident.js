@@ -7,7 +7,7 @@ import styles from "../style/IncidentStyle";
 import handleApi from "../api/handleApi";
 import ModalDropdown from "react-native-modal-dropdown";
 
-const Incident = ({ route }) => {
+const Incident = ({ navigation, route }) => {
   const { student } = route.params;
   const { student_id, firstname, class_id } = student;
   const [isAnonymous, setIsAnonymous] = useState("bool");
@@ -41,7 +41,12 @@ const Incident = ({ route }) => {
     );
 
   const handleSuccessAlert = () =>
-    Alert.alert("Incident sent", "Let's take you to your dashboard");
+    Alert.alert("Incident Sent", "Taking you to your dashboard", [
+      {
+        text: "Lets Go",
+        onPress: () => navigation.navigate("Dashboard"),
+      },
+    ]);
 
   const handleIdentifier = () =>
     Alert.alert("You have to pick you identity", "Click on 'Choose Here'");
