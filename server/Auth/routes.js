@@ -23,7 +23,6 @@ router.post("/api/auth", async (req, res) => {
     const { email, pincode } = req.body;
     const student = await authenticate(email, pincode);
     const token = await create(email);
-    console.log(token);
     res
       .status(200)
       .json({ message: "Succuss, Student Authorized", student, token });

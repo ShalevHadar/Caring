@@ -8,7 +8,7 @@ import handleApi from "../api/handleApi";
 import stringifyNumber from "../functions/numberGrades";
 
 const Dashboard = ({ route }) => {
-  const { student_id } = route.params;
+  const { student_id, token } = route.params;
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -19,7 +19,11 @@ const Dashboard = ({ route }) => {
 
   useEffect(async () => {
     await handleApi
-      .get(`/incident/${student_id}`)
+      .get(`/incident/${student_id}`, {
+        params: {
+          token,
+        },
+      })
       .then((res) => {
         setIncidents(res.data.studentData);
       })

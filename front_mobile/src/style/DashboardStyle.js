@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   tableStyle: {
-    marginTop: 50,
+    marginTop: 80,
   },
 
   tableRow: {

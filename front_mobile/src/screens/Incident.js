@@ -6,6 +6,7 @@ import LottieView from "lottie-react-native";
 import styles from "../style/IncidentStyle";
 import handleApi from "../api/handleApi";
 import ModalDropdown from "react-native-modal-dropdown";
+import { getValueFor } from "../../auth/SecureStore";
 
 const Incident = ({ navigation, route }) => {
   const { student } = route.params;
@@ -15,12 +16,19 @@ const Incident = ({ navigation, route }) => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [showFailText, setShowFailText] = useState(false);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     let timer = setTimeout(() => setLoop(false), 10000);
     return () => {
       clearTimeout(timer);
     };
+  }, []);
+
+  useEffect(async () => {
+    const token = await getValueFor("myToken")
+      .then((res) => setToken(res))
+      .catch((err) => console.log(err));
   }, []);
 
   const Capitalize = (str) => {
@@ -46,7 +54,7 @@ const Incident = ({ navigation, route }) => {
     Alert.alert("Incident Sent", "Taking you to your dashboard", [
       {
         text: "Lets Go",
-        onPress: () => navigation.navigate("Dashboard", { student_id }),
+        onPress: () => navigation.navigate("Dashboard", { student_id, token }),
       },
     ]);
   };
@@ -66,7 +74,14 @@ const Incident = ({ navigation, route }) => {
     setLoading(true);
     const date = new Date().toISOString().slice(0, 19).replace("T", " ");
     await handleApi
-      .post("/incident", { content, student_id, class_id, date, isAnonymous })
+      .post("/incident", {
+        content,
+        student_id,
+        class_id,
+        date,
+        isAnonymous,
+        token,
+      })
       .then((res) => console.log(res.status, handleSuccessAlert()))
       .catch((err) => console.log(err, setShowFailText(true)));
     setLoading(false);

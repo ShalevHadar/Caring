@@ -16,6 +16,7 @@ import styles, {
   NOT_EMPTY_CELL_BG_COLOR,
 } from "../style/authFormStyle";
 import handleApi from "../api/handleApi";
+import { getValueFor, save } from "../../auth/SecureStore";
 
 const { Value, Text: AnimatedText } = Animated;
 
@@ -61,6 +62,8 @@ const AnimatedExample = ({ navigation, email }) => {
         });
         if (response.status === 200) {
           setLoading(false);
+          save("myToken", response.data.token);
+
           const student = response.data.student;
           navigation.navigate("Incident", { student });
         }
