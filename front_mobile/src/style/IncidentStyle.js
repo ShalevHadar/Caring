@@ -41,6 +41,14 @@ const styles = StyleSheet.create({
     height: 100,
     bottom: 10,
   },
+  failtext: {
+    position: "absolute",
+    zIndex: 1,
+    bottom: 240,
+    alignSelf: "center",
+    fontSize: 22,
+    color: "#E63946",
+  },
 
   lottie2: {
     position: "absolute",

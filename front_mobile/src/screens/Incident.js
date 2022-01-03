@@ -14,6 +14,7 @@ const Incident = ({ navigation, route }) => {
   const [loop, setLoop] = useState(true);
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showFailText, setShowFailText] = useState(false);
 
   useEffect(() => {
     let timer = setTimeout(() => setLoop(false), 10000);
@@ -40,13 +41,15 @@ const Incident = ({ navigation, route }) => {
       ]
     );
 
-  const handleSuccessAlert = () =>
+  const handleSuccessAlert = () => {
+    setShowFailText(false);
     Alert.alert("Incident Sent", "Taking you to your dashboard", [
       {
         text: "Lets Go",
         onPress: () => navigation.navigate("Dashboard", { student_id }),
       },
     ]);
+  };
 
   const handleIdentifier = () =>
     Alert.alert("You have to pick you identity", "Click on 'Choose Here'");
@@ -64,10 +67,9 @@ const Incident = ({ navigation, route }) => {
     const date = new Date().toISOString().slice(0, 19).replace("T", " ");
     await handleApi
       .post("/incident", { content, student_id, class_id, date, isAnonymous })
-      .then((res) => console.log(res.status))
-      .catch((err) => console.log(err));
+      .then((res) => console.log(res.status, handleSuccessAlert()))
+      .catch((err) => console.log(err, setShowFailText(true)));
     setLoading(false);
-    handleSuccessAlert();
   };
 
   return (
@@ -111,6 +113,10 @@ const Incident = ({ navigation, route }) => {
           setContent(e);
         }}
       />
+      <Text style={styles.failtext}>
+        {showFailText ? "There's a problem identifying you" : ""}
+      </Text>
+
       {loading ? (
         <LottieView
           style={styles.lottie2}

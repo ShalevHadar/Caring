@@ -1,9 +1,10 @@
 const express = require("express");
+const { verifyTokenMiddleware } = require("../Token/tokenMiddleware");
 const { createIncident, getIncidentsById } = require("./incidentService");
 const router = express.Router();
 
 // create Incident field in DB
-router.post("/api/incident", async (req, res) => {
+router.post("/api/incident", verifyTokenMiddleware, async (req, res) => {
   try {
     await createIncident(req.body);
     res.status(200).json({ message: "Success, incident created" });
@@ -12,7 +13,7 @@ router.post("/api/incident", async (req, res) => {
   }
 });
 
-router.get("/api/incident/:id", async (req, res) => {
+router.get("/api/incident/:id", verifyTokenMiddleware, async (req, res) => {
   try {
     const id = req.params.id;
     const studentData = await getIncidentsById(id);
