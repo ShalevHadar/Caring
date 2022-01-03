@@ -14,7 +14,7 @@ const MyDataRow = ({ item, sendData }) => {
         <DataTable.Cell style={styles.tableDate} numeric>
           {item.admission_date.substr(0, 10)}
         </DataTable.Cell>
-        <DataTable.Cell style={styles.tableStatus} numeric>
+        <DataTable.Cell style={styles.tableStatus2}>
           {item.completed ? (
             <AntDesign name="checkcircle" size={24} color="black" />
           ) : (

@@ -7,7 +7,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
   },
-  tableHeader: { fontWeight: "bold", fontSize: 20, color: "#7A6C5D" },
+  tableHeader: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: "#0645AD",
+  },
   tableDate: {
     justifyContent: "center",
     position: "relative",
@@ -16,19 +20,30 @@ const styles = StyleSheet.create({
   tableStatus: {
     justifyContent: "center",
     position: "relative",
-    left: 20,
+    left: 25,
+  },
+  tableStatus2: {
+    justifyContent: "center",
+    position: "relative",
+    left: 35,
   },
   myModal: {
     position: "absolute",
   },
   tableStyle: {
-    marginTop: 80,
+    marginTop: 40,
+    paddingVertical: 40,
   },
 
   tableRow: {
-    marginVertical: 1,
-    backgroundColor: "#dbbea1",
-    borderRadius: 20,
+    marginVertical: 2,
+    backgroundColor: "#fff",
+    borderColor: "#dbbea1",
+    borderWidth: 2,
+    borderBottomColor: "#dbbea1",
+    borderBottomWidth: 2,
+    borderRadius: 10,
+    marginHorizontal: 10,
   },
   ModalStyle: {
     backgroundColor: "white",

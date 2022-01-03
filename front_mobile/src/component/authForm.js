@@ -63,7 +63,6 @@ const AnimatedExample = ({ navigation, email }) => {
         if (response.status === 200) {
           setLoading(false);
           save("myToken", response.data.token);
-
           const student = response.data.student;
           navigation.navigate("Incident", { student });
         }

@@ -23,7 +23,13 @@ const authenticate = async (email, pincode) => {
   throw new Error("Pincodes doesn't match");
 };
 
+const getStudentData = async (email) => {
+  const student = await getStudentByEmail(email);
+  return student;
+};
+
 module.exports = {
   setStudentPinCode,
   authenticate,
+  getStudentData,
 };

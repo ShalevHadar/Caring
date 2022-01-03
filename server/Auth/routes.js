@@ -1,7 +1,13 @@
 const express = require("express");
-const { setStudentPinCode, authenticate } = require("../Auth/authService");
+const {
+  setStudentPinCode,
+  authenticate,
+  getStudentData,
+} = require("../Auth/authService");
 const { sendEmailWithPinCode } = require("../Auth/sendEmailService");
+const { getStudentByEmail } = require("../Mysql/student");
 const { create } = require("../Token/token");
+const { verifyTokenMiddleware } = require("../Token/tokenMiddleware");
 const router = express.Router();
 
 // http post request, set student pincode & send email

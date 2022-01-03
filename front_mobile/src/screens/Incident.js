@@ -82,7 +82,7 @@ const Incident = ({ navigation, route }) => {
         isAnonymous,
         token,
       })
-      .then((res) => console.log(res.status, handleSuccessAlert()))
+      .then((res) => handleSuccessAlert())
       .catch((err) => console.log(err, setShowFailText(true)));
     setLoading(false);
   };
@@ -112,7 +112,6 @@ const Incident = ({ navigation, route }) => {
           }}
           dropdownStyle={{ width: 150, maxWidth: 170, maxHeight: 100 }}
           onSelect={(index, option) => {
-            // console.log(option);
             index ? setIsAnonymous(false) : setIsAnonymous(true);
           }}
         />

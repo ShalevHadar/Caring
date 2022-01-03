@@ -83,7 +83,10 @@ const Dashboard = ({ route }) => {
               contentContainerStyle={containerStyle}
             >
               <Text style={styles.InnerModalText}>
-                Incident ID: {singleIncident.incident_id} {"\n"}
+                {singleIncident.isAnonymous ? "Anonymous" : "Not Anonymous"}{" "}
+                {"\n"}
+                Incident ID:
+                {singleIncident.incident_id} {"\n"}
                 Date:{" "}
                 {singleIncident.admission_date
                   ? singleIncident.admission_date.substr(0, 10)
