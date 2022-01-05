@@ -1,7 +1,11 @@
 # Hi there, I'm Shalev Hadar - [Linkedin Profile](https://www.linkedin.com/in/shalev-hadar-30703b144/)
 ### I'm a fullstack developer, passionate about creating solutions with value - just like this project.
 <hr class="dashed">
-### 
+
+While studying into one late night, I've encountered an article about school violence. 
+Suddenly, a young girl said 'I feel like I can't tell anyone about it and that's when it hit me:
+- Why there isn't an app that allows the student to report incidents anonymously?
+That's what is 'Caring' for, giving students a platform to feel safe and share their incidents.
 
 <p float="left">
   <img src="https://user-images.githubusercontent.com/76647060/148210836-29983288-e5e7-4754-8fd5-f6191fef29fb.PNG" width="250" height="550">
