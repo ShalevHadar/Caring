@@ -26,6 +26,14 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
   <img src="https://user-images.githubusercontent.com/76647060/148212509-9ad75844-954d-40bd-9dd5-5533e89aabbd.PNG" width="250" height="550">
 </p>
 
+<hr class="dashed">
+
+<img src="https://user-images.githubusercontent.com/76647060/148213820-c634a03c-2374-4549-8fb0-d3c36268ee33.png" width="250" height="550">
+
+
+
+
+
 <!-- hr.dashed {
   border-top: 3px dashed #bbb;
 } -->
