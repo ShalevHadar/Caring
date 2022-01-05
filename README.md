@@ -58,6 +58,7 @@ Incident report screen:
 - When the report was made, send user to the next screen - the Dashboard
 
 --
+
 Incidents dashboard screen:
 - System will make a GET request to the server with all the student incidents
 - along with the student id the token from the last screen will be sent as well
