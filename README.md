@@ -1,6 +1,6 @@
 # Hi there, I'm Shalev Hadar - [Linkedin Profile](https://www.linkedin.com/in/shalev-hadar-30703b144/)
 ### I'm a fullstack developer, passionate about creating solutions with value - just like this project.
-<hr class="dashed">
+---
 
 While studying into one late night, I've encountered an article about school violence. 
 Suddenly, a young girl said 'I feel like I can't tell anyone about it and that's when it hit me:
