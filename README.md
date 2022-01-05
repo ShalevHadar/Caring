@@ -37,15 +37,15 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
 Home Screen:
 - The student insert his email, the email is verified in the database
 - Email regex for the client -> verify email in database
-- After the email is verified, the server generate a new 4-digits pin and set it to the student 'pincode' field in the db
-- then the pincode is sent to the student email using nodemailer
+- After the email is verified, the server generates a new 4-digits pin and set it to the student 'Pincode' field in the DB
+- then the Pincode is sent to the student email using nodemailer
 
 --
 
 Verification Screen:
-- The student enter the 4 code he got from last page email -> if success, the user can go to the next screen (Incident report screen) & the server create a JWT token for him.
-- If the student enter less then 4 digits, the client will notify.
-- The server checks if the pincode the student placed was matched with the one in the db.
+- The student enters the 4 code he got from the last page email -> if successful, the user can go to the next screen (Incident report screen) & the server creates a JWT token for him.
+- If the student enters less than 4 digits, the client will notify.
+- The server checks if the Pincode the student placed was matched with the one in the DB.
 
 --
 
@@ -55,24 +55,26 @@ Incident report screen:
 - After clicking the 'Send' button, the server will verify if the token exists
   - if the token does exist, allow the user to send the incident report
   - if not, the user cannot report incidents (blocks from harmful requests)
-- When the report was made, send user to the next screen - the Dashboard
+- When the report was made, send the user to the next screen - the Dashboard
 
 --
 
 Incidents dashboard screen:
 - System will make a GET request to the server with all the student incidents
 - along with the student id the token from the last screen will be sent as well
-- the server will responed with the incidents only if the token exists.
+- the server will respond with the incidents only if the token exists.
 
 ---
 #### Student UI: Expo CLI, React native
-- dependices: lottie, react-native-paper, gesture-handler, scroll-view and more.
+- dependencies: lottie, react-native-paper, gesture-handler, scroll-view and more.
 
 ### Teacher UI: React web app
-- dependices: *in the future*
+- dependencies: *in the future*
 
 ### Server & API: NodeJS, Express, MySQL
-- dependices: cors, dotenv, express, jwt, mysql2, nodemailer, nodemon
+- dependencies: cors, dotenv, express, jwt, mysql2, nodemailer, nodemon
+
+---
 
 
 
