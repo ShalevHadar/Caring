@@ -8,7 +8,7 @@ Suddenly, a young girl said 'I feel like I can't tell anyone about it and that's
 
 That's what is 'Caring' for, giving students a platform to feel safe and share their incidents.
 
-<hr class="dashed">
+---
 
 ### Home screen, Trust us screen, Verification screen
 
@@ -26,16 +26,17 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
   <img src="https://user-images.githubusercontent.com/76647060/148212509-9ad75844-954d-40bd-9dd5-5533e89aabbd.PNG" width="250" height="550">
 </p>
 
-<hr class="dashed">
+---
 
 ### ERD Model - Sql based
 
 <img src="https://user-images.githubusercontent.com/76647060/148213820-c634a03c-2374-4549-8fb0-d3c36268ee33.png">
 
-
-
-<!-- hr.dashed {
-  border-top: 3px dashed #bbb;
-} -->
+## Flows:
+Home Screen:
+- The student insert his email, the email is verified in the database
+- Email regex for the front -> verify email in database
+- After the email is verified, the server generate a new 4-digits pin and set it to the student 'pincode' field in the db
+- then the pincode is sent to the student email using nodemailer
 
 Color plate: "ffffff","dbbea1","7a6c5d","3f292b","48acdf"
