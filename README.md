@@ -15,8 +15,8 @@
   <img src="https://user-images.githubusercontent.com/76647060/148212509-9ad75844-954d-40bd-9dd5-5533e89aabbd.PNG" width="250" height="550">
 </p>
 
-hr.dashed {
+<!-- hr.dashed {
   border-top: 3px dashed #bbb;
-}
+} -->
 
 Color plate: "ffffff","dbbea1","7a6c5d","3f292b","48acdf"
