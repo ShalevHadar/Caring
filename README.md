@@ -34,7 +34,7 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
 
 ## Flow & Design:
 
-Home Screen:
+#### Home Screen:
 - The student insert his email, the email is verified in the database
 - Email regex for the client -> verify email in database
 - After the email is verified, the server generates a new 4-digits pin and set it to the student 'Pincode' field in the DB
@@ -42,14 +42,14 @@ Home Screen:
 
 --
 
-Verification Screen:
+#### Verification Screen:
 - The student enters the 4 code he got from the last page email -> if successful, the user can go to the next screen (Incident report screen) & the server creates a JWT token for him.
 - If the student enters less than 4 digits, the client will notify.
 - The server checks if the Pincode the student placed was matched with the one in the DB.
 
 --
 
-Incident report screen:
+#### Incident report screen:
 - The user can choose if to identify himself or not
 - Then he can describe the incident
 - After clicking the 'Send' button, the server will verify if the token exists
@@ -59,7 +59,7 @@ Incident report screen:
 
 --
 
-Incidents dashboard screen:
+#### Incidents dashboard screen:
 - System will make a GET request to the server with all the student incidents
 - along with the student id the token from the last screen will be sent as well
 - the server will respond with the incidents only if the token exists.
