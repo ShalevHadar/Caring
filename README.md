@@ -68,10 +68,10 @@ Incidents dashboard screen:
 #### Student UI: Expo CLI, React native
 - dependencies: lottie, react-native-paper, gesture-handler, scroll-view and more.
 
-### Teacher UI: React web app
+#### Teacher UI: React web app
 - dependencies: *in the future*
 
-### Server & API: NodeJS, Express, MySQL
+#### Server & API: NodeJS, Express, MySQL
 - dependencies: cors, dotenv, express, jwt, mysql2, nodemailer, nodemon
 
 ---
