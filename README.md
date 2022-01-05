@@ -35,8 +35,15 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
 ## Flows:
 Home Screen:
 - The student insert his email, the email is verified in the database
-- Email regex for the front -> verify email in database
+- Email regex for the client -> verify email in database
 - After the email is verified, the server generate a new 4-digits pin and set it to the student 'pincode' field in the db
 - then the pincode is sent to the student email using nodemailer
+
+--
+
+Verification Screen:
+- The student enter the 4 code he got from last page email -> if success, the user can go to the next screen (Incident report screen) & the server create a JWT token for him.
+- If the student enter less then 4 digits, the client will notify.
+- The server checks if the pincode the student placed was matched with the one in the db.
 
 Color plate: "ffffff","dbbea1","7a6c5d","3f292b","48acdf"
