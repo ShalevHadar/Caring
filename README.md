@@ -64,5 +64,16 @@ Incidents dashboard screen:
 - along with the student id the token from the last screen will be sent as well
 - the server will responed with the incidents only if the token exists.
 
+---
+#### Student UI: Expo CLI, React native
+- dependices: lottie, react-native-paper, gesture-handler, scroll-view and more.
+
+### Teacher UI: React web app
+- dependices: *in the future*
+
+### Server & API: NodeJS, Express, MySQL
+- dependices: cors, dotenv, express, jwt, mysql2, nodemailer, nodemon
+
+
 
 Color plate: "ffffff","dbbea1","7a6c5d","3f292b","48acdf"
