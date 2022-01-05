@@ -5,6 +5,7 @@
 While studying into one late night, I've encountered an article about school violence. 
 Suddenly, a young girl said 'I feel like I can't tell anyone about it and that's when it hit me:
 - Why there isn't an app that allows the student to report incidents anonymously?
+
 That's what is 'Caring' for, giving students a platform to feel safe and share their incidents.
 
 <p float="left">
