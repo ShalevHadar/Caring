@@ -28,9 +28,9 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
 
 <hr class="dashed">
 
+### ERD Model - Sql based
+
 <img src="https://user-images.githubusercontent.com/76647060/148213820-c634a03c-2374-4549-8fb0-d3c36268ee33.png">
-
-
 
 
 
