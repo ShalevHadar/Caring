@@ -78,4 +78,4 @@ That's what is 'Caring' for, giving students a platform to feel safe and share t
 
 
 
-Color plate: "ffffff","dbbea1","7a6c5d","3f292b","48acdf"
+Color plate: "#ffffff","dbbea1","7a6c5d","3f292b","48acdf"
