@@ -1,5 +1,5 @@
 const { createIncidentInDB } = require("../Mysql/incident");
-const { getIncidentsByStudentId } = require("../mysql/student");
+const { getIncidentsByStudentId } = require("../Mysql/student");
 const {
   getTeacherIdByClassId,
   getTeacherNameByTeacherId,

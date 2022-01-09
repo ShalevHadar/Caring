@@ -37,7 +37,26 @@ const getTeacherNameByTeacherId = async (teacher_id) => {
   });
 };
 
+const getTeacherNameByTeacherEmail = async (email) => {
+  return new Promise((resolve, reject) => {
+    mysqlConnection.query(
+      `SELECT * FROM teachers WHERE email = '${email}'`,
+      (err, results, field) => {
+        if (err) {
+          reject(err);
+        }
+        if (results.affectedRows == 0) {
+          reject(new Error(`No teachers with this email`));
+        } else {
+          resolve(results[0]);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   getTeacherIdByClassId,
   getTeacherNameByTeacherId,
+  getTeacherNameByTeacherEmail,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,39 +9,39 @@ import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
 import { myTheme } from "../components/myTheme";
 import { validate } from "../components/validate";
+import handleApi from "../api/handleApi";
 
 export default function Home() {
   const [error, setError] = useState("");
-  // const URL = `http://localhost:3030/api/users/login`;
-
   const navigate = useNavigate();
+
+  const handleLogin = (text, teacher_id) => {
+    navigate(`/${text}`, { state: teacher_id });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
+    const password = data.get("password");
     if (validate(email)) {
-      console.log("ok");
+      handleApi
+        .post("/teacher/auth", { email, password })
+        .then((res) => {
+          const token = res.data.token;
+          document.cookie = `token=${token}`;
+          const teacher_id = res.data.teacher_id;
+          handleLogin("dashboard", res.data.teacher_id);
+        })
+        .catch((err) => setError("Email/Password isn't valid"));
       setError("");
     } else {
       setError("Your email address isn't valid");
     }
-    // axios
-    //   .post(URL, { email: data.get("email"), password: data.get("password") })
-    //   .then((res) => {
-    //     if (!res.data) {
-    //       console.log(res.data);
-    //     } else {
-    //       const token = res.data.token;
-    //       document.cookie = `token=${token}`;
-    //       navigate("../items");
-    //     }
-    //   })
-    //   .catch((error) => console.log(error.massage));
   };
+
   return (
     <ThemeProvider theme={myTheme}>
       <Container component="main" maxWidth="xs">

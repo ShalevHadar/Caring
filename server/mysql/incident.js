@@ -16,6 +16,25 @@ const createIncidentInDB = async (data) => {
   });
 };
 
+const getIncidentsByTeacherId = async (teacher_id) => {
+  return new Promise((resolve, reject) => {
+    mysqlConnection.query(
+      `SELECT * FROM incidents WHERE teacher_id = '${teacher_id}'`,
+      (err, results, field) => {
+        if (err) {
+          reject(err);
+        }
+        if (results.affectedRows == 0) {
+          reject(new Error(`no incidents with the teacher_id: ${teacher_id}`));
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   createIncidentInDB,
+  getIncidentsByTeacherId,
 };

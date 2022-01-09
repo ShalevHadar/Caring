@@ -1,4 +1,5 @@
 const express = require("express");
+const { getAllIncidentsByTeacherId } = require("../Teacher/TeacherService");
 const { verifyTokenMiddleware } = require("../Token/tokenMiddleware");
 const { createIncident, getIncidentsById } = require("./incidentService");
 const router = express.Router();
@@ -22,6 +23,20 @@ router.get(
       const id = req.params.id;
       const studentData = await getIncidentsById(id);
       res.status(200).json({ message: "Succuss, All incidents", studentData });
+    } catch (error) {
+      res.status(404).json({ message: "Failure, Can't get all incidents" });
+    }
+  }
+);
+
+router.get(
+  "/teacher/incident/:id",
+  verifyTokenMiddleware,
+  async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const incidents = await getAllIncidentsByTeacherId(id);
+      res.status(200).json({ message: "Succuss, All incidents", incidents });
     } catch (error) {
       res.status(404).json({ message: "Failure, Can't get all incidents" });
     }

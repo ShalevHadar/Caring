@@ -1,4 +1,3 @@
-const mysqlConnection = require("../Mysql/client");
 const { updateStudentPinCode, getStudentByEmail } = require("../Mysql/student");
 
 // generate a new pin and set it into the student dedicated field
