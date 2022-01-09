@@ -51,8 +51,27 @@ const updateStudentPinCode = (email, pincode) => {
   });
 };
 
+const getStudentNameByStudentId = async (student_id) => {
+  return new Promise((resolve, reject) => {
+    mysqlConnection.query(
+      `SELECT * FROM students WHERE student_id = '${student_id}'`,
+      (err, results, field) => {
+        if (err) {
+          reject(err);
+        }
+        if (results.affectedRows == 0) {
+          reject(new Error(`No name for this student`));
+        } else {
+          resolve(results[0].firstname + " " + results[0].lastname);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   getStudentByEmail,
   updateStudentPinCode,
   getIncidentsByStudentId,
+  getStudentNameByStudentId,
 };

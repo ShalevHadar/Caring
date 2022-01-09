@@ -1,4 +1,5 @@
 const { getIncidentsByTeacherId } = require("../Mysql/incident");
+const { getStudentNameByStudentId } = require("../Mysql/student");
 const { getTeacherNameByTeacherEmail } = require("../Mysql/teacher_id");
 
 const authenticateTeacher = async (email, password) => {
@@ -10,7 +11,7 @@ const authenticateTeacher = async (email, password) => {
 };
 
 const getAllIncidentsByTeacherId = async (id) => {
-  const incidents = await getIncidentsByTeacherId(id);
+  let incidents = await getIncidentsByTeacherId(id);
   return incidents;
 };
 

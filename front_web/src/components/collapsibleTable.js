@@ -18,6 +18,10 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -31,23 +35,53 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.content}
+          <Typography
+            overflow="hidden"
+            maxWidth="200px"
+            maxHeight="20px"
+            style={{ textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+          >
+            {row.content}
+          </Typography>
         </TableCell>
-        <TableCell align="right">
-          {row.isAnonymous ? "Anonymous" : row.student_id}
+        <TableCell align="right" style={{ textAlign: "center" }}>
+          {row.isAnonymous
+            ? "Anonymous"
+            : `${capitalizeFirstLetter(row.firstname)} ${capitalizeFirstLetter(
+                row.lastname
+              )}`}
         </TableCell>
-        <TableCell align="right">{row.admission_date.substr(0, 10)}</TableCell>
-        <TableCell align="right">{row.incident_id}</TableCell>
-        <TableCell align="right">{row.completed}</TableCell>
+        <TableCell align="right" style={{ textAlign: "center" }}>
+          {row.admission_date.substr(0, 10)}
+        </TableCell>
+        <TableCell align="right" style={{ textAlign: "center" }}>
+          {row.incident_id}
+        </TableCell>
+        <TableCell align="right" style={{ textAlign: "center" }}>
+          {row.completed ? "Completed" : "Unfinished"}
+        </TableCell>
       </TableRow>
-      {/* <TableRow>
+      <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                History
+              <Typography gutterBottom style={{ fontWeight: "bold" }}>
+                Incident Details:
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Typography gutterBottom>
+                Name:{" "}
+                {row.isAnonymous
+                  ? "Anonymous"
+                  : `${capitalizeFirstLetter(
+                      row.firstname
+                    )} ${capitalizeFirstLetter(row.lastname)}`}
+              </Typography>
+              <Typography gutterBottom>
+                Date: {row.admission_date.substr(0, 10)}
+              </Typography>
+
+              <Typography gutterBottom>Content: {row.content}</Typography>
+              {/* <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
                     <TableCell>Date</TableCell>
@@ -70,11 +104,11 @@ function Row(props) {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+              </Table> */}
             </Box>
           </Collapse>
         </TableCell>
-      </TableRow> */}
+      </TableRow>
     </React.Fragment>
   );
 }
@@ -100,33 +134,55 @@ function Row(props) {
 export default function CollapsibleTable({ incidents }) {
   return (
     <Card sx={{ p: 4 }}>
-      <TableContainer sx={{}}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow hover={true} style={{ backgroundColor: "#7a6c5d" }}>
-              <TableCell />
-              <TableCell style={{ fontWeight: "bold" }}>Content</TableCell>
-              <TableCell style={{ fontWeight: "bold" }} align="right">
-                Student Name
-              </TableCell>
-              <TableCell style={{ fontWeight: "bold" }} align="right">
-                Date
-              </TableCell>
-              <TableCell style={{ fontWeight: "bold" }} align="right">
-                Incident ID
-              </TableCell>
-              <TableCell style={{ fontWeight: "bold" }} align="right">
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {incidents.map((row) => (
-              <Row key={row.incident_id} row={row} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div>
+        <TableContainer
+          style={{
+            border: "0px solid black",
+            borderRadius: 20,
+            boxShadow: "0px 0px 2px 2px #9E9E9E",
+          }}
+        >
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow hover={true} style={{ backgroundColor: "#7a6c5d" }}>
+                <TableCell />
+                <TableCell style={{ fontWeight: "bold", minWidth: 200 }}>
+                  Content
+                </TableCell>
+                <TableCell
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                  align="right"
+                >
+                  Student Name
+                </TableCell>
+                <TableCell
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                  align="right"
+                >
+                  Date
+                </TableCell>
+                <TableCell
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                  align="right"
+                >
+                  Incident ID
+                </TableCell>
+                <TableCell
+                  style={{ fontWeight: "bold", textAlign: "center" }}
+                  align="right"
+                >
+                  Status
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {incidents.map((row) => (
+                <Row key={row.incident_id} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </Card>
   );
 }

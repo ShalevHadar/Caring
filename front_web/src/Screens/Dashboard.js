@@ -20,7 +20,6 @@ export default function Dashboard() {
           },
         });
         const groups = _.groupBy(res.data.incidents, "completed");
-
         setCompletedIncidents(groups[0]);
         setUnfinishedIncidents(groups[1]);
       } catch (error) {
@@ -37,6 +36,7 @@ export default function Dashboard() {
         hidden={true}
         incidents={completedIncidents}
       />
+
       <IncidentList
         teacherId={data.state}
         hidden={false}

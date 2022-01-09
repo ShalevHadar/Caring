@@ -19,7 +19,8 @@ const createIncidentInDB = async (data) => {
 const getIncidentsByTeacherId = async (teacher_id) => {
   return new Promise((resolve, reject) => {
     mysqlConnection.query(
-      `SELECT * FROM incidents WHERE teacher_id = '${teacher_id}'`,
+      `SELECT incident_id, incidents.student_id,  teacher_id, incidents.class_id,  content, teacher_response, admission_date, completed, isAnonymous, firstname, lastname, email FROM incidents INNER JOIN 
+      students ON incidents.student_id = students.student_id WHERE teacher_id = ${teacher_id} ORDER BY admission_date ASC`,
       (err, results, field) => {
         if (err) {
           reject(err);
