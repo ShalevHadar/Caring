@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -12,11 +11,97 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Card } from "@mui/material";
+import LinearProgress from "@mui/material/LinearProgress";
+
+import { Button, Card, TextField } from "@mui/material";
+
+const ProgressCircle = (
+  { label, progress, isSelected, position } = { position: "top" }
+) => {
+  const labelTopStyle = { top: "2rem" };
+  const labelBottomStyle = { bottom: "2rem" };
+  return (
+    <>
+      <Box
+        sx={{
+          position: "absolute",
+          zIndex: 10,
+          left: progress + "%",
+          width: 30,
+          height: 30,
+          background: "rgb(144, 202, 249)",
+          borderRadius: "50%",
+          bottom: 2,
+          transform: "translateY(50%)",
+        }}
+      >
+        {isSelected && (
+          <>
+            <Box
+              sx={{
+                position: "absolute",
+                zIndex: 10,
+                left: "50%",
+                top: "50%",
+                width: 13,
+                height: 13,
+                background: "rgb(214, 202, 249)",
+                borderRadius: "50%",
+                bottom: 2,
+                transform: "translateX(-50%) translateY(-50%)",
+              }}
+            ></Box>
+          </>
+        )}
+        <Box
+          sx={{
+            ...(position == "top" ? labelTopStyle : labelBottomStyle),
+            position: "absolute",
+            maxWidth: "10rem",
+            width: "max-content",
+            transform: "translateX(-50%)",
+            left: "50%",
+          }}
+        >
+          <Typography>{label}</Typography>
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+const TabbedProgressBar = ({ tabs, position } = { position: "top" }) => {
+  const positionTopCSS = { marginTop: "2.5rem" };
+  const positionBottomCSS = { marginBottom: "2.5rem" };
+  console.log(position);
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        ...(position === "top" ? positionTopCSS : positionBottomCSS),
+      }}
+    >
+      {tabs.map((label, i) => (
+        <ProgressCircle
+          label={label}
+          key={i}
+          progress={i * (100 / tabs.length)}
+        />
+      ))}
+      <LinearProgress sx={{ mb: 3 }} variant="determinate" value={100} />
+    </Box>
+  );
+};
 
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+    console.log(value);
+  };
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -64,47 +149,39 @@ function Row(props) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography gutterBottom style={{ fontWeight: "bold" }}>
-                Incident Details:
+            <Box sx={{ margin: 1, pl: "8%", pr: "8%", pt: 2 }} textAlign="left">
+              <TabbedProgressBar
+                tabs={["First Tab", "Second", "Third"]}
+                position="top"
+              />
+              <Typography gutterBottom>
+                <span style={{ fontWeight: "bold" }}>Content</span>:{" "}
+                {row.content}
               </Typography>
               <Typography gutterBottom>
-                Name:{" "}
-                {row.isAnonymous
-                  ? "Anonymous"
-                  : `${capitalizeFirstLetter(
-                      row.firstname
-                    )} ${capitalizeFirstLetter(row.lastname)}`}
+                Your Response: {row.teacher_response}
               </Typography>
-              <Typography gutterBottom>
-                Date: {row.admission_date.substr(0, 10)}
-              </Typography>
-
-              <Typography gutterBottom>Content: {row.content}</Typography>
-              {/* <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table> */}
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Enter your response here"
+                multiline
+                maxRows={10}
+                sx={{ mt: 1, mb: 3 }}
+                style={{ minWidth: "350px" }}
+                value={value}
+                onChange={handleChange}
+              />
+              <Box>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  style={Styles.buttonStyle}
+                  size="large"
+                  sx={{ mb: 4 }}
+                >
+                  <Typography>Send response</Typography>
+                </Button>
+              </Box>
             </Box>
           </Collapse>
         </TableCell>
@@ -112,24 +189,6 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
-// Row.propTypes = {
-//   row: PropTypes.shape({
-//     calories: PropTypes.number.isRequired,
-//     carbs: PropTypes.number.isRequired,
-//     fat: PropTypes.number.isRequired,
-//     history: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         amount: PropTypes.number.isRequired,
-//         customerId: PropTypes.string.isRequired,
-//         date: PropTypes.string.isRequired,
-//       })
-//     ).isRequired,
-//     incident_id: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     protein: PropTypes.number.isRequired,
-//   }).isRequired,
-// };
 
 export default function CollapsibleTable({ incidents }) {
   return (
@@ -146,9 +205,7 @@ export default function CollapsibleTable({ incidents }) {
             <TableHead>
               <TableRow hover={true} style={{ backgroundColor: "#7a6c5d" }}>
                 <TableCell />
-                <TableCell style={{ fontWeight: "bold", minWidth: 200 }}>
-                  Content
-                </TableCell>
+                <TableCell style={{ fontWeight: "bold" }}>Content</TableCell>
                 <TableCell
                   style={{ fontWeight: "bold", textAlign: "center" }}
                   align="right"
@@ -186,3 +243,11 @@ export default function CollapsibleTable({ incidents }) {
     </Card>
   );
 }
+
+const Styles = {
+  buttonStyle: {
+    textTransform: "none",
+    backgroundColor: "#7a6c5d",
+    minWidth: 170,
+  },
+};
