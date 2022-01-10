@@ -11,19 +11,27 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { createTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import { myTheme } from "./myTheme";
+import { useCookies } from "react-cookie";
+import { getCookie } from "../functions/getCookie";
 
-const pages = ["Login"];
+let pages = [];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
+  const [, , removeCookie] = useCookies();
   const navigate = useNavigate();
 
   const handleClick = (text) => {
-    navigate(`/${text}`);
+    if (text === "Logout") {
+      removeCookie("token");
+      navigate("./");
+    } else {
+      navigate(`/${text}`);
+    }
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -43,6 +51,12 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  if (getCookie("token")) {
+    pages = ["Dashboard", "Logout"];
+  } else {
+    pages = ["Login"];
+  }
 
   return (
     <AppBar position="static" theme={myTheme} color="secondary">

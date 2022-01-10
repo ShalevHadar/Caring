@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,16 +12,19 @@ import { ThemeProvider } from "@mui/material/styles";
 import { myTheme } from "../components/myTheme";
 import { validate } from "../components/validate";
 import handleApi from "../api/handleApi";
+import { CircularProgress } from "@mui/material";
 
 export default function Home() {
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [err, setErr] = useState("");
 
   const handleLogin = (text, teacher_id) => {
     navigate(`/${text}`, { state: teacher_id });
   };
 
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
@@ -30,15 +33,19 @@ export default function Home() {
       handleApi
         .post("/teacher/auth", { email, password })
         .then((res) => {
+          setLoading(false);
           const token = res.data.token;
           document.cookie = `token=${token}`;
-          const teacher_id = res.data.teacher_id;
           handleLogin("dashboard", res.data.teacher_id);
         })
-        .catch((err) => setError("Email/Password isn't valid"));
-      setError("");
+        .catch((err) => {
+          setLoading(false);
+          setErr("Email/Password isn't valid");
+        });
+      setErr("");
     } else {
-      setError("Your email address isn't valid");
+      setLoading(false);
+      setErr("Your email address isn't valid");
     }
   };
 
@@ -87,7 +94,9 @@ export default function Home() {
               autoComplete="current-password"
             />
             <Box textAlign="center" sx={{ pt: 1 }}>
-              <Typography sx={{ color: "red" }}>{error}</Typography>
+              <Typography sx={{ color: "red" }}>
+                {loading ? <CircularProgress /> : err}
+              </Typography>
             </Box>
             <Box textAlign="center" sx={{ pt: 2 }}>
               <Button

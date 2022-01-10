@@ -155,11 +155,12 @@ function Row(props) {
                 position="top"
               />
               <Typography gutterBottom>
-                <span style={{ fontWeight: "bold" }}>Content</span>:{" "}
+                <span style={{ fontWeight: "bold" }}>Content: </span>
                 {row.content}
               </Typography>
               <Typography gutterBottom>
-                Your Response: {row.teacher_response}
+                <span style={{ fontWeight: "bold" }}>Your Response: </span>{" "}
+                {row.teacher_response}
               </Typography>
               <TextField
                 id="outlined-multiline-flexible"
